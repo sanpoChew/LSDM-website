@@ -1,0 +1,49 @@
+<div class="courses">
+  <div class="courses-splash">
+    <div class="default-column">
+      <div class="content-row">
+        <div class="courses-splash-text">
+          <h1>Choose a course<br>you would like to<br>enrol in today</h1>
+          {{> block-action element="a" class="scroll-btn" href="#courses" label="BROWSE COURSES"}}
+          <h5>Courses include:</h5>
+          <div>SEO, PPC, Email, Social Media, Mobile and Analytics...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="courses" class="bookmark"></div>
+  <div class="courses-main">
+    <div class="default-column">
+      <div class="content-row">
+        <div class="courses-main-title">
+          <h1>Browse all courses</h1>
+          <div>Professional Diploma and single Modules</div>
+        </div>
+        {{#each courseData.long}}
+        <div class="courses-main-diploma">
+          <div>
+            <span class="courses-main-diploma-image">
+              <img src="/img/courses/diploma-cover.png" />
+            </span>
+            <span class="courses-main-diploma-text">
+              <h4>Professional Diploma in Digital Marketing</h4>
+              <div>
+                The programme is suitable for professionals of all levels and disciplines, and will
+                prepare you to take up a more specialist role within the overall marketing domain.
+              </div>
+              <div class="action-block">
+                <a href="/courses/{{link}}" class="action-link">GET MORE INFO</a>
+                <a href="/contact-us" class="action-link-alt">CONTACT THE TEAM</a>
+              </div>
+            </span>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    <div class="courses-main-title">
+      <h1>Short courses</h1>
+    </div>
+    {{> modules shortCourses=courseData.short }}
+  </div>
+</div>

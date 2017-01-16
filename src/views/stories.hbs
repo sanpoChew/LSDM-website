@@ -1,0 +1,28 @@
+{{#> Layout}}
+  {{#*inline "content"}}
+    {{> Header}}
+      <div class="stories">
+        <div class="stories-splash">
+          <div class="default-column">
+            <h1>Student Stories</h1>
+            <div>
+              Over 80% of last year's graduate class now work in digital. Take control of your
+              career and <span>maximize your potential - just ask our students!</span>
+            </div>
+          </div>
+        </div>
+        <div class="stories-content">
+          <div class="default-column">
+            <div class="content-row">
+              {{#each stories}}
+                <div class="stories-content-student-block">
+                  {{> studentBlock}}
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+    {{> Footer}}
+  {{/inline}}
+{{/Layout}}

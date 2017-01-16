@@ -1,0 +1,16 @@
+<div class="information-row">
+  <div class="content-column">
+    <div class="content-row">
+      {{#each info}}
+        <div class="information-block">
+          <img src="{{image}}" />
+          <div>
+            <h5>{{title}}</h5>
+            {{#if ../hr}}<hr>{{/if}}
+            {{text}}
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+✔ Fix Header links (Mobile and Course Dropdown) @done(2017-01-16 01:19)
+✔ Lock off Diagnostic Form @done(2017-01-16 01:28)
+✔ Fix Enrol Process @done(2017-01-16 17:55)
+☐ Fix Contact Form (reimplement mailgun emails on contact creation and contact form)
+✔ Add Brochures to all modules @done(2017-01-16 20:00)
+✔ Add Brochure covers to enrolment form @done(2017-01-16 20:11)
+☐ Add Blog
+
+☐ Ask Marriott if price should be coming from deal or course.
+☐ Add Introduction Brochure when Marriott sends it
+
+☐ Brotli Compression
+☐ Optimize Images (pngcrush, mozjpeg, webP, imagemin)
+☐ Replace Swiper with Siema? https://pawelgrzybek.com/siema/

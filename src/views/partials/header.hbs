@@ -1,0 +1,75 @@
+<header class="header">
+  <div class="header-main">
+    <div class="content-column">
+      <div class="content-row">
+        {{> header-logo}}
+        <div class="header-main-mobile">
+          <label id="nav-label" for="mobile-nav">
+            <svg role="img" title="menu">
+              <use xlink:href="/img/icons/map.svg#menu" href="/img/icons/map.svg#menu" />
+            </svg>
+          </label>
+          <input type="checkbox" id="mobile-nav" hidden>
+          <div id="mobile-menu">
+            <ul>
+              <li class="close-menu">
+                <button id="close-menu-button">
+                  <svg role="img" title="close">
+                    <use xlink:href="/img/icons/map.svg#close" href="/img/icons/map.svg#close" />
+                  </svg>
+                </button>
+              </li>
+              {{#each nav}}
+                {{#if sub_pages.meta.total}}
+                  <div>
+                    <a href="{{link}}">{{name}}</a>
+                  </div>
+                  <li class="sublist">
+                    <input id="show-links" type="checkbox" hidden></input>
+                    <ul>
+                      {{#each sub_pages.data}}
+                        <li><a href="/courses/{{link}}">{{name}}</a></li>
+                      {{/each}}
+                      <label for="show-links">
+                        <svg role="img" title="expand">
+                          <use xlink:href="/img/icons/map.svg#expand" href="/img/icons/map.svg#expand" />
+                        </svg>
+                      </label>
+                    </ul>
+                  </li>
+                {{else}}
+                  <li><a href="/{{link}}">{{name}}</a></li>
+                {{/if}}
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+        <div class="header-main-course">
+          <select name="courses" onchange="location = this.value;">
+            <option value="0" disabled selected hidden>Courses...</option>
+            {{#each courses}}
+              <option value="/courses/{{link}}">{{name}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="header-main-contact">
+          <div>
+            <img src="/img/call.png" />
+            <a href="tel:020-3732-0578">
+              <span>020 3732 0578</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-nav">
+    <div class="default-column">
+      {{#each nav}}
+        <a class="navLink" href="/{{link}}">{{name}}</a>
+      {{/each}}
+      <div id="button-anchor"></div>
+      <div id="contact-anchor"></div>
+    </div>
+  </div>
+</header>

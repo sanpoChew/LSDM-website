@@ -1,0 +1,51 @@
+{{#> Layout}}
+  {{#*inline "content"}}
+    {{> Header}}
+      <div class="story">
+        <div class="story-splash">
+          <h1>Student Stories</h1>
+        </div>
+        {{#with story}}
+        <div class="story-student-block">
+          {{> studentBlock}}
+        </div>
+        <div class="story-text">
+          <div class="default-column">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac sapien at justo
+              interdum bibendum eu ut nulla. Nulla bibendum orci vitae eros eleifend convallis. Nunc
+              consequat tristique nunc ac aliquam. Duis facilisis tempor libero in dignissim. Vivamus
+              ipsum mi, dictum ultricies consequat id, consequat quis erat. In at molestie nunc. Vivamus
+              tempus velit eget ornare suscipit. Fusce quam eros, imperdiet quis venenatis a, placerat
+              vitae odio. Nunc nec sem scelerisque lacus interdum molestie nec sit amet enim. Aenean at
+              dictum purus. Aenean facilisis sed neque eget egestas. Aenean fringilla nunc id lorem
+              laoreet porttitor. Ut quis justo nibh. Proin aliquam metus sed ligula faucibus, eu fermentum
+              massa facilisis. Quisque et nisl sit amet turpis euismod ullamcorper at ac metus. Vestibulum
+              sed dapibus sem, non tempus quam.
+            </p>
+            <p>
+              Nunc pellentesque ipsum in aliquet efficitur. Ut tortor justo, rhoncus quis ex id,
+              tristique tincidunt lectus. Ut pretium neque lorem, pharetra lacinia erat tristique
+              nec. Pellentesque eu mi quis nunc tincidunt scelerisque. Nulla facilisi. Proin vitae
+              vestibulum elit. Mauris sapien felis, faucibus eu feugiat eget, egestas eu lectus.
+              Proin tempus dictum eros, quis dictum nunc mattis quis. Donec tristique vitae turpis
+              quis hendrerit. Praesent accumsan ac felis id rhoncus. Nunc ipsum mi, tempus nec
+              pulvinar elementum, sollicitudin nec est.
+            </p>
+            <p>
+              Phasellus turpis libero, viverra eget tristique id, faucibus non massa. Sed ultricies
+              felis eu pulvinar ultricies. Quisque bibendum ex vitae purus tempor volutpat.
+              Phasellus id sodales est. Suspendisse quam felis, volutpat at eros in, egestas
+              scelerisque justo. Maecenas at pulvinar neque. Donec porta, mauris eu venenatis
+              posuere, nulla tortor ullamcorper est, id maximus nibh ligula et urna. Nullam dui
+              justo, laoreet vel elit non, vulputate luctus mi. Mauris eros erat, ullamcorper eu
+              tristique in, fermentum eget nunc. Nulla sed odio felis. Suspendisse vel augue
+              ullamcorper, blandit est vel, suscipit nulla.
+            </p>
+          </div>
+        </div>
+        {{/with}}
+      </div>
+    {{> Footer}}
+  {{/inline}}
+{{/Layout}}

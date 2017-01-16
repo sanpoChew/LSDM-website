@@ -1,0 +1,203 @@
+<div class="diploma">
+  <div class="diploma-splash">
+    <div class="default-column">
+      <div class="content-row">
+        <div class="diploma-splash-video">
+          <img id="video-btn" src="/img/module/play.png" alt="Play Video" />
+          <iframe src="https://player.vimeo.com/video/45579831?color=8CD024&title=0&byline=0&portrait=0" allowfullscreen></iframe>
+        </div>
+        <div class="diploma-splash-text">
+          <h1>Professional Diploma in Digital Marketing</h1>
+          <div>
+            You will be exposed to the latest methods, techniques and tools for improving
+            your organization's Digital Marketing and brand-building efforts.
+          </div>
+          <h5>30 HOURS &middot; CLASSROOM BASED &middot; £1395</h5>
+          <div class="diploma-splash-action">
+            {{> block-action element="label" for="popup_formcontrol" class="moveToHeader" label="DOWNLOAD BROCHURE"}}
+            {{> block-action element="a" href="#enrol-now" class="action-link-alt moveToHeader" label="ENROL NOW"}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="checkbox" id="popup_formcontrol">
+    <div class="popup-formbackdrop">
+      <div class="home-splash-form popup-form">
+        <div>
+          <label for="popup_formcontrol">CLOSE</label>
+          <h4>Download Brochure</h4>
+          <div class="secondary-text">We'll send you a full course brochure, course offers and career guidance</div>
+          <form id="info-kit-form" action="/forms/diploma/brochure" method="post" target="_blank">
+            <select name="interested_in" class="contactfield">
+              <option value="" disabled selected hidden>I'm interested in...</option>
+              <option value="1">Professional Diploma</option>
+              <option value="2">Search Engine Optimization</option>
+              <option value="3">Pay Per Click</option>
+              <option value="4">Digital Display Marketing</option>
+              <option value="5">Social Media Marketing</option>
+              <option value="6">Email Marketing</option>
+              <option value="7">Mobile Marketing</option>
+              <option value="8">Analytics</option>
+              <option value="9">Strategy & Planning</option>
+            </select>
+            <div class="small-input">
+              <input name="firstname" class="contactfield required" type="text" placeholder="First name*" required></input>
+              <input name="lastname" class="contactfield required" type="text" placeholder="Last name*" required></input>
+            </div>
+            <input name="phone" class="contactfield required" type="text" maxlength="15" pattern="\d*" placeholder="Phone number*" required></input>
+            <input name="email" class="contactfield required" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" type="email" placeholder="Email*" required></input>
+            <select name="expected_enrol_date" class="contactfield">
+              <option value="" disabled selected hidden>When do you expect to enrol?</option>
+              <option value="1">As Soon As Possible</option>
+              <option value="2">1-2 Months</option>
+              <option value="3">3-4 Months</option>
+              <option value="3">Not Sure</option>
+            </select>
+            <div class="action-block">
+              <button class="action-link">DOWNLOAD BROCHURE</button>
+            </div>
+            <div class="link-block secondary-text">
+              <a href="/privacy" target="_blank">Privacy Policy</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> fold}}
+  <div class="diploma-highlights">
+    <div class="default-column">
+      <div class="content-row">
+        <div class="diploma-highlights-image">
+          <img src="/img/diploma/highlights.png" />
+        </div>
+        <div class="diploma-highlights-text">
+          <h1>Course Highlights</h1>
+          <div>
+            London School of Digital Marketing offers a truly exceptional digital marketing course to
+            strengthen your skillset and progress along a digital marketing career path, the Professional
+            Diploma in Digital Marketing is our cornerstone certification.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="whos-it-for">
+    <div class="default-column">
+      <div class="content-row">
+        <div class="row-title">
+          <h1>Who's It For?</h1>
+          <h5 class="secondary-text">
+            The Professional Diploma is designed for those who are either new to marketing
+            and advertising, or have more experience but want to further their expertise
+            in digital
+          </h5>
+        </div>
+        <div class="information-block">
+          <img src="/img/diploma/managers.png" />
+          <div>
+            <h4>Marketing Managers & Execs</h4>
+            <div class="secondary-text">Seeking increased confidence and a more rounded understanding of digital.</div>
+          </div>
+        </div>
+        <div class="information-block">
+          <img src="/img/diploma/changers.png" />
+          <div>
+            <h4>Career Changers</h4>
+            <div class="secondary-text">Seeking an exciting career in a creative and analytical industry.</div>
+          </div>
+        </div>
+        <div class="information-block">
+          <img src="/img/diploma/graduates.png" />
+          <div>
+            <h4>Graduates</h4>
+            <div class="secondary-text">Looking for a fast track into a competitive and fast changing industry.</div>
+          </div>
+        </div>
+        <div class="information-block">
+          <img src="/img/diploma/directors.png" />
+          <div>
+            <h4>Directors & Heads of Talent</h4>
+            <div class="secondary-text">Aiming to upgrade digital talent and stay ahead of the curve.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="diploma-modules">
+    <h1 class="diploma-modules-title">Modules</h1>
+    {{> modules shortCourses=page.sub_courses }}
+  </div>
+  <div class="outcomes">
+    <div class="default-column">
+      <div class="row-title">
+        <h1>Course Learning Outcomes</h1>
+        <hr>
+      </div>
+      <h5>
+        We learn through experience, through making mistakes, and trying out ideas – not by being told.
+        With the London School of Digital Marketing course you’ll be working with others on real projects
+        to give you experiences you’ll be able to draw on throughout your career.
+      </h5>
+      <div class="content-row">
+        <div class="content-block">
+          <h4>Group Work</h4>
+          <div class="secondary-text">
+            We learn through experience, through making mistakes, and trying out ideas – not by being told.
+            With the Squared Online digital marketing course you’ll be working with others on real projects to
+            give you experiences you’ll be able to draw on throughout your career.
+          </div>
+        </div>
+        <div class="content-block">
+          <h4>Hands-on Projects</h4>
+          <div class="secondary-text">
+            Each project will have a different focus, from understanding how to grow a business to serving
+            clients at an agency. You’ll get experience in group dynamics, organisational change, technology
+            platforms and strategy. You’ll gain a holistic experience in each project, making your skills easier to
+            apply in the real world.
+          </div>
+        </div>
+        <div class="content-block">
+          <h4>Exams</h4>
+          <div class="secondary-text">
+            A range of different question formats are used including Text based Multiple Choice, Image based
+            Multiple Choice, Matching and Hot Spot questions.
+          </div>
+        </div>
+        <div class="content-block">
+          <h4>Accreditation</h4>
+          <div class="secondary-text">
+            The Digital Marketing Institute is the global certification body for Digital Marketing education. Our
+            syllabus defines the framework of knowledge, skill and competency required to meet the current
+            and future demands of the Digital economy, and our practical, industry-driven qualifications are
+            recognised as the international standard in Digital Marketing certification.
+            This award has been credit rated by SQA at Level 8 on the Scottish Credit and Qualifications
+            Framework (SCQF). SCQF level 8 corresponds to level 5 on the European Qualifications Framework
+            (EQF).
+          </div>
+        </div>
+        <div class="content-block">
+          <h4>Industry Practitioners</h4>
+          <div class="secondary-text">
+            The course will introduce you to the most important and transformative aspects of digital
+            marketing, delivered by the industry’s leading practitioners.
+          </div>
+          <br />
+          <div class="secondary-text">
+            All of your lecturers are specialist professionals in the digital marketing sector, running and
+            delivering online marketing campaigns, using the latest tools and techniques on a daily basis.
+          </div>
+          <br />
+          <div class="secondary-text">
+            They help to create and validate our modules as well as teach them, so your lectures will be based
+            on our formalised syllabus of learning overlayed with their real life experiences, examples and case
+            studies.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> row-diagnostic label="MORE INFO"}}
+  {{> course-payment-row id=page.course.data.id}}
+</div>
+<script type="text/javascript" src="/js/module.js"></script>

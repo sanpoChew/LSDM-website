@@ -1,0 +1,59 @@
+{
+  "name": "LSDM",
+  "version": "1.0.0",
+  "description": "London School of Digital Marketing website",
+  "main": "index.js",
+  "author": "Sanpo Chew",
+  "license": "MIT",
+  "directus": {
+    "dev": "https://londonschoolofdigitalmarketing.com/directus/api",
+    "prod": "localhost:8000/api/"
+  },
+  "scripts": {
+    "build:css": "node-sass --include-path ./node_modules --output-style compressed ./src/scss/base.scss ./res/css/base.css",
+    "watch:css": "node-sass --include-path ./node_modules -w -r ./src/scss/base.scss ./res/css/base.css",
+    "build:js": "webpack",
+    "watch:js": "webpack -w",
+    "browser-sync:start": "browser-sync start --config browsersync.config.js",
+    "start:dev": "npm run watch:js & nodemon -x 'node --harmony' ./index.js | bunyan & npm run watch:css & npm run browser-sync:start",
+    "start": "npm run build:js && npm run build:css && node --harmony index.js | bunyan"
+  },
+  "dependencies": {
+    "bootstrap": "next",
+    "bunyan": "^1.8.5",
+    "co": "^4.6.0",
+    "directus-sdk-javascript": "^1.1.1",
+    "dotenv": "^4.0.0",
+    "hubspot": "^0.4.2",
+    "hyperform": "^0.8.15",
+    "koa": "next",
+    "koa-better-body": "^3.0.2",
+    "koa-convert": "^1.2.0",
+    "koa-hbs": "^0.9.0",
+    "koa-router": "next",
+    "mailgun-js": "^0.8.0",
+    "node-sass": "^3.11.2",
+    "request": "^2.78.0",
+    "smoothscroll-polyfill": "^0.3.4",
+    "stripe": "^4.14.0",
+    "svg4everybody": "^2.1.4",
+    "swiper": "^3.4.0",
+    "validator": "^6.2.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-polyfill": "^6.20.0",
+    "babel-preset-env": "^1.1.4",
+    "browser-sync": "^2.17.5",
+    "eslint": "^3.9.1",
+    "eslint-config-airbnb-base": "^9.0.0",
+    "eslint-plugin-import": "^2.0.1",
+    "nodemon": "^1.11.0",
+    "proxy-middleware": "^0.15.0",
+    "webpack": "v2.2.0-rc.2",
+    "webpack-node-externals": "^1.5.4",
+    "whatwg-fetch": "^2.0.1"
+  }
+}

@@ -1,0 +1,67 @@
+<div class="module">
+  {{#with page}}
+  <div class="module-splash">
+    <div class="content-column">
+      <div class="content-row">
+        <div class="module-splash-video">
+          <img id="video-btn" src="/img/module/play.png" alt="Play Video" />
+          <iframe src="{{video}}" allowfullscreen></iframe>
+        </div>
+        <div class="module-splash-text">
+          <h1>{{name}}</h1>
+          <h5>{{tagline}}</h5>
+          {{> block-action element="label" for="popup_formcontrol" class="moveToHeader" label="DOWNLOAD BROCHURE"}}
+          {{> block-action element="a" class="scroll-btn moveToHeader" href="#enrol-now" label="APPLY NOW"}}
+        </div>
+      </div>
+    </div>
+    <input type="checkbox" id="popup_formcontrol">
+    <div class="popup-formbackdrop">
+      <div class="home-splash-form popup-form">
+        <div>
+          <label for="popup_formcontrol">CLOSE</label>
+          <h4>Download Brochure</h4>
+          <div class="secondary-text">We'll send you a full course brochure, course offers and career guidance</div>
+          <form id="info-kit-form" action="/forms/{{link}}/brochure" method="post" target="_blank">
+            <select name="interested_in" class="contactfield">
+              <option value="" disabled selected hidden>I'm interested in...</option>
+              <option value="1">Professional Diploma</option>
+              <option value="2">Search Engine Optimization</option>
+              <option value="3">Pay Per Click</option>
+              <option value="4">Digital Display Marketing</option>
+              <option value="5">Social Media Marketing</option>
+              <option value="6">Email Marketing</option>
+              <option value="7">Mobile Marketing</option>
+              <option value="8">Analytics</option>
+              <option value="9">Strategy & Planning</option>
+            </select>
+            <div class="small-input">
+              <input name="firstname" class="contactfield required" type="text" placeholder="First name*" required></input>
+              <input name="lastname" class="contactfield required" type="text" placeholder="Last name*" required></input>
+            </div>
+            <input name="phone" class="contactfield required" type="text" maxlength="15" pattern="\d*" placeholder="Phone number*" required></input>
+            <input name="email" class="contactfield required" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" type="email" placeholder="Email*" required></input>
+            <select name="expected_enrol_date" class="contactfield">
+              <option value="" disabled selected hidden>When do you expect to enrol?</option>
+              <option value="1">As Soon As Possible</option>
+              <option value="2">1-2 Months</option>
+              <option value="3">3-4 Months</option>
+              <option value="3">Not Sure</option>
+            </select>
+            <div class="action-block">
+              <button class="action-link">DOWNLOAD BROCHURE</button>
+            </div>
+            <div class="link-block secondary-text">
+              <a href="/privacy" target="_blank">Privacy Policy</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{{content}}}
+  {{> row-diagnostic label="MORE INFO"}}
+  {{> course-payment-row id=course.data.id}}
+  {{/with}}
+</div>
+<script type="text/javascript" src="/js/module.js"></script>

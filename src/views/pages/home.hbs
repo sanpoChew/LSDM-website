@@ -1,0 +1,143 @@
+<div class="home">
+  <div class="home-splash">
+    <div class="default-column">
+      <div class="content-row">
+        <div class="home-splash-info">
+          <div>
+            <h1>World’s most widely recognised, accredited professional qualification in Digital Marketing</h1>
+            <input id="show-detail" type="checkbox" hidden></input>
+            <div>
+              London School of Digital Marketing programmes deliver the framework and tools
+              needed to meet the challenges of our economy today - and tomorrow. Transform your
+              career and company with a programme grounded in the realities of modern business
+              and the connected society.
+            </div>
+            <label for="show-detail">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+                <path d="M0 0h24v24H0z" fill="none"/>
+              </svg>
+            </label>
+          </div>
+        </div>
+        <div class="home-splash-form">
+          <div>
+            <h4>Download Brochure</h4>
+            <div class="secondary-text">We'll send you a full course brochure, course offers and career guidance</div>
+            <form id="info-kit-form" action="/forms/diploma/brochure" method="post" target="_blank">
+              <select name="interested_in" class="contactfield">
+                <option value="" disabled selected hidden>I'm interested in...</option>
+                <option value="1">Professional Diploma</option>
+                <option value="2">Search Engine Optimization</option>
+                <option value="3">Pay Per Click</option>
+                <option value="4">Digital Display Marketing</option>
+                <option value="5">Social Media Marketing</option>
+                <option value="6">Email Marketing</option>
+                <option value="7">Mobile Marketing</option>
+                <option value="8">Analytics</option>
+                <option value="9">Strategy & Planning</option>
+              </select>
+              <div class="small-input">
+                <input name="firstname" class="contactfield required" type="text" placeholder="First name*" required></input>
+                <input name="lastname" class="contactfield required" type="text" placeholder="Last name*" required></input>
+              </div>
+              <input name="phone" class="contactfield required" type="text" maxlength="15" pattern="\d*" placeholder="Phone number*" required></input>
+              <input name="email" class="contactfield required" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" type="email" placeholder="Email*" required></input>
+              <select name="expected_enrol_date" class="contactfield">
+                <option value="" disabled selected hidden>When do you expect to enrol?</option>
+                <option value="1">As Soon As Possible</option>
+                <option value="2">1-2 Months</option>
+                <option value="3">3-4 Months</option>
+                <option value="3">Not Sure</option>
+              </select>
+              <div class="action-block">
+                <button class="action-link">DOWNLOAD BROCHURE</button>
+              </div>
+              <div class="link-block secondary-text">
+                <a href="/privacy-policy" target="_blank">Privacy Policy</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> fold}}
+  <div class="home-courses">
+    <div class="default-column">
+      <div class="content-row">
+        <div class="home-courses-image">
+          <img src="/img/diploma/brochure-cover.jpg" alt="" />
+        </div>
+        <div class="home-courses-text">
+          <h1>
+            Start your journey<br>and enrol in a<br>course today
+          </h1>
+          <div>
+            Professional Diploma in Digital Marketing, Pay Per Click, Analytics, Mobile Marketing,
+             Social Media, Search Engine Optimization, Strategy & Planning, Digital Display
+             Advertising...
+          </div>
+          <div class="action-block">
+            <a href="/courses" class="action-link">VIEW ALL COURSES</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="information">
+    <div class="default-column">
+      <div class="information-title">
+        <h1>Innovative in Digital Marketing Education</h1>
+        <div class="secondary-text">LSDM gives you experience of the global standard certification and world class training</div>
+      </div>
+      <div class="content-row">
+        <div class="information-block">
+          <img src="/img/home/knowledge.png" />
+          <div>
+            <h5>Why London School of Marketing</h5>
+            <hr>
+            Our course is delivered by the industry’s leading practitioners.
+            As well as producing innovative and creative marketing strategies, participants
+            will also learn how to leverage these strategies to gain competitive advantage
+            for both their business and their career.
+          </div>
+        </div>
+        <div class="information-block">
+          <img src="/img/home/syllabus.png" />
+          <div>
+            <h5>Industry Validated Syllabus</h5>
+            <hr>
+            London School of Digital Marketing (LSDM) benefits from the support of its
+            education partner Digital Marketing Institute as well as the Syllabus Advisory
+            Council (Google, Twitter, Microsoft, Linkedin, Facebook).
+          </div>
+        </div>
+      </div>
+      <div class="content-row">
+        <div class="information-block">
+          <img src="/img/home/experts.png" />
+          <div>
+            <h5>Leading Digital Experts</h5>
+            <hr>
+            Our Subject Matter Experts have specifically structured the syllabus to focus on
+            current trends and best practices in digital marketing meaning that your learning
+            will be shaped by their practical experience, industry advice and best practice.
+          </div>
+        </div>
+        <div class="information-block">
+          <img src="/img/home/global.png" />
+          <div>
+            <h5>Internationally Recognised Accreditation</h5>
+            <hr>
+            London School of Digital Marketing’s Professional Diploma in Digital Marketing is
+            the only digital marketing course approved and credit rated by professional
+            education governing bodies such as, Scottish Qualifications Authority at Level 8
+            and is comparable to Level 5 on the European Qualifications Framework.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> row-diagnostic label="MORE INFO"}}
+</div>

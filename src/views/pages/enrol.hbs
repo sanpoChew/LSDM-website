@@ -1,0 +1,47 @@
+<div class="enrol-page">
+  <div class="content-row">
+    <div class="content-column">
+      <div class="enrol-title">
+        <img src="{{course.brochure_image}}" alt="">
+        <h1>{{course.name}}</h1>
+        <h3>{{deal.date}}</h3>
+        <h3>{{deal.location}}</h3>
+        <h3>£{{course.price}}</h3>
+      </div>
+      <div class="enrol-form">
+        <form action="/courses/{{course.link}}/enrol/{{deal.id}}/enrol-complete" method="post">
+          <h1>Enrolment Form</h1>
+          <div class="small-input">
+            <input name="firstname" class="contactfield required" type="text" placeholder="First name*" required></input>
+            <input name="lastname" class="contactfield required" type="text" placeholder="Last name*" required></input>
+          </div>
+          <input name="phone" class="contactfield required" type="text" maxlength="15" pattern="\d*" placeholder="Phone number*" required></input>
+          <input name="email" class="contactfield required" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" type="email" placeholder="Email*" required></input>
+          <input name="address" class="contactfield required" type="text" placeholder="Address*" required></input>
+          <input name="city" class="contactfield required" placeholder="Town/City*" required></input>
+          <input name="state" class="contactfield" type="text" placeholder="State/Region"></input>
+          <input name="zip" class="contactfield required" type="text" placeholder="Post Code*" required></input>
+          <script
+            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="pk_live_uEO8qGFDuXVIsL6yG1nQzgjK"
+            data-amount="{{course.price}}00"
+            data-name="London School of Digital Marketing"
+            data-description="{{course.name}}"
+            data-image="/img/logo-green.png"
+            data-locale="auto"
+            data-zip-code="true"
+            data-currency="gbp">
+          </script>
+          <a class="stripeLink" href="http://www.stripe.com" target="_blank">
+            <img class="stripeImage" src="/img/icons/stripe.png" />
+          </a>
+          <div class="cardLogos">
+            <img src="/img/icons/visa.png" alt="Visa">
+            <img src="/img/icons/mastercard.png" alt="Mastercard">
+            <img src="/img/icons/amex.png" alt="Amex">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

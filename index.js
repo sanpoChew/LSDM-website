@@ -161,7 +161,14 @@ var _directusSdkJavascript2 = _interopRequireDefault(_directusSdkJavascript);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const directus = new _directusSdkJavascript2.default('6N5KABGc7ke4HtwtSxmiIz2jlDECIMUZ', process.env.npm_package_directus_dev, 1.1);
+const directusURL = () => {
+  if (process.env.NODE_ENV === 'production') {
+    return process.env.npm_package_directus_prod;
+  }
+  return process.env.npm_package_directus_dev;
+};
+
+const directus = new _directusSdkJavascript2.default(process.env.DI_KEY, directusURL(), 1.1);
 
 async function loadBaseData() {
   try {
@@ -310,7 +317,7 @@ async function getDeal(dealID, courseID) {
 }
 
 function associateDeal(contactID, dealID) {
-  const url = `https://api.hubapi.com/deals/v1/deal/${ dealID }/associations/CONTACT?id=${ contactID }&hapikey=6660dfd3-02c2-4bfa-ba82-e76136a30814&portalId=2651862`;
+  const url = `https://api.hubapi.com/deals/v1/deal/${ dealID }/associations/CONTACT?id=${ contactID }&hapikey=${ process.env.HS_KEY }&portalId=2651862`;
   return new Promise(resolve => {
     _request2.default.put({
       url
@@ -488,77 +495,46 @@ async function addToList(address) {
   }
 }
 
-exports.default = {
-  addToList
-};
+async function sendNewContact(hubspotID, fields) {
+  try {
+    const studentName = `${ fields.firstname } ${ fields.lastname }`;
+    const hubspotLink = `https://app.hubspot.com/sales/2651862/contact/${ hubspotID }/`;
+    const message = {
+      from: `System <no-reply@londonschoolofdigitalmarketing.com>`,
+      to: 'joe@sanpochew.com',
+      subject: `${ studentName } is a new contact in Hubspot.`,
+      text: `
+        ${ studentName } is a new contact.
 
-// function emailContact(contactID, contactFields) {
-//   const studentName = `${contactFields.firstname} ${contactFields.lastname}`;
-//   const studentLink = `https://app.hubspot.com/sales/2651862/contact/${contactID}/`;
-//   return new Promise((resolve, reject) => {
-//     request.post('https://api.mailgun.net/v3/mg.londonschoolofdigitalmarketing.com/messages', {
-//       auth: {
-//         user: 'api',
-//         pass: 'key-f77d1304c1f5e2edaec1c852a41a8a8d',
-//       },
-//       form: {
-//         from: `${studentName} <${contactFields.email}>`,
-//         to: 'marriott@londonschoolofdigitalmarketing.com',
-//         subject: 'New Contact',
-//         text: `
-//         ${studentName} is a new contact.
-//
-//         You can see their contact page here: ${studentLink}
-//         `,
-//       },
-//     }, (err, res, body) => {
-//       if (!err && res.statusCode === 200) {
-//         const j = JSON.parse(body);
-//         if (j.id) {
-//           resolve(j);
-//           return;
-//         }
-//         reject(Object.assign({ fail: 'email' }, j));
-//       }
-//       reject({ fail: 'email', status: res.statusCode, error: err });
-//     });
-//   });
-// }
-//
-// function emailQuery(contactFields, query, contactID) {
-//   const studentName = `${contactFields.firstname} ${contactFields.lastname}`;
-//   const studentLink = `https://app.hubspot.com/sales/2651862/contact/${contactID}/`;
-//   return new Promise((resolve, reject) => {
-//     request.post('https://api.mailgun.net/v3/mg.londonschoolofdigitalmarketing.com/messages', {
-//       auth: {
-//         user: 'api',
-//         pass: 'key-f77d1304c1f5e2edaec1c852a41a8a8d',
-//       },
-//       form: {
-//         from: `${studentName} <${contactFields.email}>`,
-//         to: 'marriott@londonschoolofdigitalmarketing.com',
-//         subject: 'New Query',
-//         text: `
-//         ${studentName} has a question:
-//
-//           ${query}
-//
-//         Contact Page: ${studentLink}
-//         `,
-//       },
-//     }, (err, res, body) => {
-//       if (!err && res.statusCode === 200) {
-//         const j = JSON.parse(body);
-//         if (j.id) {
-//           resolve(j);
-//           return;
-//         }
-//         reject(Object.assign({ fail: 'email' }, j));
-//       }
-//       reject({ fail: 'email', status: res.statusCode, error: err });
-//     });
-//   });
-// }
+        You can see their contact page here: ${ hubspotLink }
+      `
+    };
+    return await mailgun.messages().send(message);
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function sendQuery(fields) {
+  try {
+    const studentName = `${ fields.firstname } ${ fields.lastname }`;
+    const message = {
+      from: `${ studentName } <${ fields.email }>`,
+      to: 'joe@sanpochew.com',
+      subject: `${ studentName } has a question.`,
+      text: fields.query
+    };
+    return await mailgun.messages().send(message);
+  } catch (err) {
+    throw err;
+  }
+}
+
+exports.default = {
+  addToList,
+  sendNewContact,
+  sendQuery
+};
 
 /***/ },
 /* 14 */
@@ -650,7 +626,6 @@ const courseRouter = new _koaRouter2.default().get('/', async ctx => {
       }] } = await _directus2.default.getItems('pages', {
       filters: { link: ctx.params.course }
     });
-    console.log(course);
     course.link = ctx.params.course;
     const deal = await _hubspot2.default.getDeal(ctx.params.dealid, course.id);
     await ctx.render('enrol', Object.assign(ctx.state, {
@@ -787,8 +762,26 @@ const formRouter = new _koaRouter2.default().post('/:form', async (ctx, next) =>
   }
 }).post('/city-filter', async ctx => {
   ctx.body = await _hubspot2.default.getDates(ctx.request.fields.city, ctx.request.fields.course);
+}).post('/contact-form', async ctx => {
+  const contactFields = Object.keys(ctx.request.fields).reduce((obj, key) => {
+    if (key !== 'query') {
+      return Object.assign(obj, {
+        [key]: ctx.request.fields[key]
+      });
+    }
+    return obj;
+  }, {});
+  const contact = await _hubspot2.default.addContact(contactFields);
+  if (contact.isNew) {
+    await _mailgun2.default.sendNewContact(contact.vid, contactFields);
+  }
+  await _mailgun2.default.sendQuery(ctx.request.fields);
+  ctx.redirect('/thank-you');
 }).post('/:course/brochure', async ctx => {
-  await _hubspot2.default.addContact(ctx.request.fields);
+  const contact = await _hubspot2.default.addContact(ctx.request.fields);
+  if (contact.isNew) {
+    await _mailgun2.default.sendNewContact(contact.vid, ctx.request.fields);
+  }
   ctx.redirect(`/pdf/${ ctx.params.course }.pdf`);
 }).post('/newsletter', async ctx => {
   await _mailgun2.default.addToList(ctx.request.fields.email);

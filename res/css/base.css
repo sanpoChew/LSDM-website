@@ -1933,7 +1933,7 @@ output {
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
-      justify-content: space-between; }
+      justify-content: flex-end; }
       @media (min-width: 576px) {
         .contact-form-buttons {
           flex-direction: row; } }

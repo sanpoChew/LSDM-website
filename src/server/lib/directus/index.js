@@ -1,8 +1,15 @@
 import Client from 'directus-sdk-javascript';
 
+const directusURL = () => {
+  if (process.env.NODE_ENV === 'production') {
+    return process.env.npm_package_directus_prod;
+  }
+  return process.env.npm_package_directus_dev;
+};
+
 const directus = new Client(
   process.env.DI_KEY,
-  process.env.npm_package_directus_dev,
+  directusURL(),
   1.1
 );
 

@@ -16,7 +16,7 @@
     "watch:js": "webpack -w",
     "browser-sync:start": "browser-sync start --config browsersync.config.js",
     "start:dev": "npm run watch:js & nodemon -x 'node --harmony' ./index.js | bunyan & npm run watch:css & npm run browser-sync:start",
-    "start": "npm run build:js && npm run build:css && node --harmony index.js | bunyan"
+    "start": "NODE_ENV=production node --harmony index.js | bunyan"
   },
   "dependencies": {
     "bootstrap": "next",

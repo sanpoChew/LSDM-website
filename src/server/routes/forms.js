@@ -38,8 +38,27 @@ const formRouter = new Router()
   .post('/city-filter', async (ctx) => {
     ctx.body = await hubspot.getDates(ctx.request.fields.city, ctx.request.fields.course);
   })
+  .post('/contact-form', async (ctx) => {
+    const contactFields = Object.keys(ctx.request.fields).reduce((obj, key) => {
+      if (key !== 'query') {
+        return Object.assign(obj, {
+          [key]: ctx.request.fields[key],
+        });
+      }
+      return obj;
+    }, {});
+    const contact = await hubspot.addContact(contactFields);
+    if (contact.isNew) {
+      await mailgun.sendNewContact(contact.vid, contactFields);
+    }
+    await mailgun.sendQuery(ctx.request.fields);
+    ctx.redirect('/thank-you');
+  })
   .post('/:course/brochure', async (ctx) => {
-    await hubspot.addContact(ctx.request.fields);
+    const contact = await hubspot.addContact(ctx.request.fields);
+    if (contact.isNew) {
+      await mailgun.sendNewContact(contact.vid, ctx.request.fields);
+    }
     ctx.redirect(`/pdf/${ctx.params.course}.pdf`);
   })
   .post('/newsletter', async (ctx) => {

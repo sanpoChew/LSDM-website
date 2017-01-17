@@ -7,15 +7,13 @@
   "license": "MIT",
   "directus": {
     "dev": "https://londonschoolofdigitalmarketing.com/directus/api",
-    "prod": "localhost:8000/api/"
+    "prod": "http://localhost:8000/api"
   },
   "scripts": {
-    "build:css": "node-sass --include-path ./node_modules --output-style compressed ./src/scss/base.scss ./res/css/base.css",
-    "watch:css": "node-sass --include-path ./node_modules -w -r ./src/scss/base.scss ./res/css/base.css",
     "build:js": "webpack",
     "watch:js": "webpack -w",
     "browser-sync:start": "browser-sync start --config browsersync.config.js",
-    "start:dev": "npm run watch:js & nodemon -x 'node --harmony' ./index.js | bunyan & npm run watch:css & npm run browser-sync:start",
+    "start:dev": "npm run watch:js & nodemon -x 'node --harmony' ./index.js | bunyan & npm run browser-sync:start",
     "start": "NODE_ENV=production node --harmony index.js | bunyan"
   },
   "dependencies": {
@@ -32,7 +30,6 @@
     "koa-hbs": "^0.9.0",
     "koa-router": "next",
     "mailgun-js": "^0.8.0",
-    "node-sass": "^3.11.2",
     "request": "^2.78.0",
     "smoothscroll-polyfill": "^0.3.4",
     "stripe": "^4.14.0",
@@ -47,12 +44,17 @@
     "babel-polyfill": "^6.20.0",
     "babel-preset-env": "^1.1.4",
     "browser-sync": "^2.17.5",
+    "clean-webpack-plugin": "^0.1.15",
+    "css-loader": "^0.26.1",
     "eslint": "^3.9.1",
     "eslint-config-airbnb-base": "^9.0.0",
     "eslint-plugin-import": "^2.0.1",
+    "extract-text-webpack-plugin": "v2.0.0-beta.5",
     "nodemon": "^1.11.0",
     "proxy-middleware": "^0.15.0",
+    "sass-loader": "^4.1.1",
     "webpack": "v2.2.0-rc.2",
+    "webpack-manifest-plugin": "^1.1.0",
     "webpack-node-externals": "^1.5.4",
     "whatwg-fetch": "^2.0.1"
   }

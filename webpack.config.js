@@ -1,5 +1,8 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const nodeExternals = require('webpack-node-externals');
 const webpack = require('webpack');
 
@@ -30,7 +33,7 @@ const serverConfig = {
 const bundleConfig = {
   entry: {
     base: ['babel-polyfill', 'whatwg-fetch', './src/js/base.js'],
-    module: './src/js/module.js',
+    style: './src/scss/base.scss',
   },
   module: {
     loaders: [
@@ -44,16 +47,27 @@ const bundleConfig = {
           ],
         },
       },
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract([
+          'css-loader', 'sass-loader?includePaths=./node_modules',
+        ]),
+      },
     ],
   },
   resolve: {
     modules: ['src', 'node_modules'],
   },
   plugins: [
+    new CleanWebpackPlugin(['./res/css', './res/js']),
+    new ManifestPlugin({
+      fileName: './res/webpack-manifest.json',
+    }),
+    new ExtractTextPlugin('./res/css/[name].[hash].css'),
     new webpack.optimize.UglifyJsPlugin(),
   ],
   output: {
-    filename: 'res/js/[name].js',
+    filename: 'res/js/[name].[hash].js',
   },
 };
 

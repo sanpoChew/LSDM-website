@@ -30,6 +30,16 @@ if (stripeButton) {
   });
 }
 
+const video = document.querySelector('iframe');
+const videoBtn = document.querySelector('#video-btn');
+
+if (video) {
+  videoBtn.addEventListener('click', () => {
+    video.style.display = 'block';
+    videoBtn.style.display = 'none';
+  });
+}
+
 const BrochurePopUp = document.querySelector('#popup_formcontrol');
 
 if (BrochurePopUp) {

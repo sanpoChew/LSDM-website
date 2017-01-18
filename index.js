@@ -587,10 +587,6 @@ var _directus = __webpack_require__(2);
 
 var _directus2 = _interopRequireDefault(_directus);
 
-var _index = __webpack_require__(1);
-
-var _index2 = _interopRequireDefault(_index);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const blogRouter = new _koaRouter2.default().get('/', async ctx => {
@@ -600,7 +596,13 @@ const blogRouter = new _koaRouter2.default().get('/', async ctx => {
     orderDirection: 'DESC'
   });
   const { data: topics } = await _directus2.default.getItems('topics');
-  const activeTopics = topics.filter(t => t.blog_posts.meta.total > 0);
+  const activeTopics = topics.filter(t => {
+    const activePosts = t.blog_posts.data.filter(p => p.active === 1);
+    if (activePosts.length) {
+      return true;
+    }
+    return false;
+  });
   await ctx.render('blog', Object.assign(ctx.state, {
     layout: 'social',
     pageTitle: 'Blog | London School of Digital Marketing',
@@ -906,7 +908,7 @@ const formRouter = new _koaRouter2.default().post('/:form', async (ctx, next) =>
 }).post('/newsletter', async ctx => {
   await _mailgun2.default.addToList(ctx.request.fields.email);
   ctx.status = 200;
-  ctx.body = 'Complete';
+  ctx.body = { completed: true };
 });
 
 exports.default = formRouter;

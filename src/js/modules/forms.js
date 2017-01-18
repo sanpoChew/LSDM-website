@@ -70,7 +70,7 @@ function handlePostResult(form, statusBox, res) {
       break;
     }
     default:
-      return;
+      updateFormStatus(statusBox, 'Thank You!');
   }
 }
 

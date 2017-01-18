@@ -1,6 +1,5 @@
 import Router from 'koa-router';
 import directus from '../lib/directus';
-import log from '../index';
 
 const blogRouter = new Router()
   .get('/', async (ctx) => {
@@ -10,7 +9,13 @@ const blogRouter = new Router()
       orderDirection: 'DESC',
     });
     const { data: topics } = await directus.getItems('topics');
-    const activeTopics = topics.filter(t => t.blog_posts.meta.total > 0);
+    const activeTopics = topics.filter((t) => {
+      const activePosts = t.blog_posts.data.filter(p => p.active === 1);
+      if (activePosts.length) {
+        return true;
+      }
+      return false;
+    });
     await ctx.render('blog', Object.assign(ctx.state, {
       layout: 'social',
       pageTitle: 'Blog | London School of Digital Marketing',

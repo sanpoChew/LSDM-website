@@ -64,7 +64,7 @@ const formRouter = new Router()
   .post('/newsletter', async (ctx) => {
     await mailgun.addToList(ctx.request.fields.email);
     ctx.status = 200;
-    ctx.body = 'Complete';
+    ctx.body = { completed: true };
   });
 
 export default formRouter;

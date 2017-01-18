@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Router from 'koa-router';
+import blogRouter from './blog';
 import coursesRouter from './courses';
 import diagnosticRouter from './diagnostic';
 import formsRouter from './forms';
@@ -27,6 +28,7 @@ const index = new Router()
       log.error({ err });
     }
   })
+  .use('/blog', blogRouter.routes(), blogRouter.allowedMethods())
   .use('/courses', coursesRouter.routes(), coursesRouter.allowedMethods())
   .use('/diagnostic-tool', diagnosticRouter.routes(), diagnosticRouter.allowedMethods())
   .use('/forms', formsRouter.routes(), formsRouter.allowedMethods())

@@ -1,0 +1,47 @@
+<div class="blog-page">
+  <div class="blog-header default-row">
+    <div class="default-column">
+      <h1>Blog</h1>
+      <h2>{{currentTopic.topic}}</h2>
+    </div>
+  </div>
+  <div class="blog-page-content default-row">
+    <div class="default-column">
+      <div class="content-row">
+        <div class="blog-posts">
+          {{#each blogPosts}}
+            <div class="blog-post">
+              <img src="{{head_image.data.url}}" alt="">
+              <div class="blog-content">
+                <h1 class="blog-title">{{title}}</h1>
+                <div class="blog-tags">
+                  {{#each topics.data}}
+                    <a href="/blog/{{link}}" class="blog-tag">{{topic}}</a>
+                  {{/each}}
+                </div>
+                {{{cut text}}}
+                <a class="blog-content-link" href="/blog/{{id}}/{{link}}">Read More</a>
+                <div class="share-buttons">
+                  <div class="fb-share-button"
+                		data-href="https://www.londonschoolofdigitalmarketing.com/blog/{{id}}/{{link}}"
+                		data-layout="button_count">
+                	</div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+        <div class="blog-sidebar">
+          <div class="blog-sidebar-topics">
+            <h1>Topics</h1>
+            <ul>
+            {{#each activeTopics}}
+              <li><h3><a href="/blog/{{link}}">{{topic}}</a></h3></li>
+            {{/each}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -109,7 +109,7 @@ var _koaHbs = __webpack_require__(12);
 
 var _koaHbs2 = _interopRequireDefault(_koaHbs);
 
-var _path = __webpack_require__(2);
+var _path = __webpack_require__(3);
 
 var _path2 = _interopRequireDefault(_path);
 
@@ -120,6 +120,16 @@ var _routes2 = _interopRequireDefault(_routes);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const log = _bunyan2.default.createLogger({ name: 'LSDM' });
+
+_koaHbs2.default.registerHelper('cut', text => {
+  const index = text.indexOf('<p>', 1000);
+
+  return new _koaHbs2.default.SafeString(text.substring(0, index));
+});
+
+_koaHbs2.default.registerHelper('encodeMyString', i => {
+  return new _koaHbs2.default.SafeString(i.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"'));
+});
 
 new _koa2.default().use((0, _koaConvert2.default)((0, _koaBetterBody2.default)())).use((0, _koaConvert2.default)(_koaHbs2.default.middleware({
   viewPath: _path2.default.resolve('./src/views/pages'),
@@ -145,12 +155,6 @@ exports.default = log;
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
-
-module.exports = require("path");
-
-/***/ },
-/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -161,7 +165,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.loadBaseData = loadBaseData;
 
-var _directusSdkJavascript = __webpack_require__(17);
+var _directusSdkJavascript = __webpack_require__(18);
 
 var _directusSdkJavascript2 = _interopRequireDefault(_directusSdkJavascript);
 
@@ -194,6 +198,12 @@ async function loadBaseData() {
 exports.default = directus;
 
 /***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+module.exports = require("path");
+
+/***/ },
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -204,11 +214,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _hubspot = __webpack_require__(19);
+var _hubspot = __webpack_require__(20);
 
 var _hubspot2 = _interopRequireDefault(_hubspot);
 
-var _request = __webpack_require__(21);
+var _request = __webpack_require__(22);
 
 var _request2 = _interopRequireDefault(_request);
 
@@ -356,11 +366,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _fs = __webpack_require__(18);
+var _fs = __webpack_require__(19);
 
 var _fs2 = _interopRequireDefault(_fs);
 
-var _path = __webpack_require__(2);
+var _path = __webpack_require__(3);
 
 var _path2 = _interopRequireDefault(_path);
 
@@ -368,15 +378,19 @@ var _koaRouter = __webpack_require__(0);
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
-var _courses = __webpack_require__(14);
+var _blog = __webpack_require__(14);
+
+var _blog2 = _interopRequireDefault(_blog);
+
+var _courses = __webpack_require__(15);
 
 var _courses2 = _interopRequireDefault(_courses);
 
-var _diagnostic = __webpack_require__(15);
+var _diagnostic = __webpack_require__(16);
 
 var _diagnostic2 = _interopRequireDefault(_diagnostic);
 
-var _forms = __webpack_require__(16);
+var _forms = __webpack_require__(17);
 
 var _forms2 = _interopRequireDefault(_forms);
 
@@ -384,7 +398,7 @@ var _index = __webpack_require__(1);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _directus = __webpack_require__(3);
+var _directus = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -406,7 +420,7 @@ const index = new _koaRouter2.default().get(/^\/(.*)(?:\/|$)/, async (ctx, next)
   } catch (err) {
     _index2.default.error({ err });
   }
-}).use('/courses', _courses2.default.routes(), _courses2.default.allowedMethods()).use('/diagnostic-tool', _diagnostic2.default.routes(), _diagnostic2.default.allowedMethods()).use('/forms', _forms2.default.routes(), _forms2.default.allowedMethods()).get('/', async ctx => {
+}).use('/blog', _blog2.default.routes(), _blog2.default.allowedMethods()).use('/courses', _courses2.default.routes(), _courses2.default.allowedMethods()).use('/diagnostic-tool', _diagnostic2.default.routes(), _diagnostic2.default.allowedMethods()).use('/forms', _forms2.default.routes(), _forms2.default.allowedMethods()).get('/', async ctx => {
   try {
     await ctx.render('home', Object.assign(ctx.state, {
       pageTitle: 'Home | London School of Digital Marketing'
@@ -481,7 +495,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _mailgunJs = __webpack_require__(20);
+var _mailgunJs = __webpack_require__(21);
 
 var _mailgunJs2 = _interopRequireDefault(_mailgunJs);
 
@@ -569,7 +583,95 @@ var _koaRouter = __webpack_require__(0);
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
-var _stripe = __webpack_require__(22);
+var _directus = __webpack_require__(2);
+
+var _directus2 = _interopRequireDefault(_directus);
+
+var _index = __webpack_require__(1);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const blogRouter = new _koaRouter2.default().get('/', async ctx => {
+  const { data: blogPosts } = await _directus2.default.getItems('blog', {
+    filters: { active: 1 },
+    orderBy: 'id',
+    orderDirection: 'DESC'
+  });
+  const { data: topics } = await _directus2.default.getItems('topics');
+  const activeTopics = topics.filter(t => t.blog_posts.meta.total > 0);
+  await ctx.render('blog', Object.assign(ctx.state, {
+    layout: 'social',
+    pageTitle: 'Blog | London School of Digital Marketing',
+    blogPosts,
+    activeTopics
+  }));
+}).get('/unpub', async ctx => {
+  const { data: blogPosts } = await _directus2.default.getItems('blog', {
+    filters: { active: 2 },
+    orderBy: 'id',
+    orderDirection: 'DESC'
+  });
+  const { data: topics } = await _directus2.default.getItems('topics');
+  const activeTopics = topics.filter(t => t.blog_posts.meta.total > 0);
+  await ctx.render('blog', Object.assign(ctx.state, {
+    pageTitle: 'Blog | London School of Digital Marketing',
+    blogPosts,
+    activeTopics
+  }));
+}).get('/:topiclink', async ctx => {
+  const { data: blogPosts } = await _directus2.default.getItems('blog', {
+    filters: { active: 1 },
+    orderBy: 'id',
+    orderDirection: 'DESC'
+  });
+  const { data: topics } = await _directus2.default.getItems('topics');
+  const activeTopics = topics.filter(t => t.blog_posts.meta.total > 0);
+  const [currentTopic] = topics.filter(t => t.link === ctx.params.topiclink);
+  const topicPosts = blogPosts.filter(p => {
+    const taggedPosts = p.topics.data.filter(t => t.id === currentTopic.id);
+    if (taggedPosts.length) {
+      return true;
+    }
+    return false;
+  });
+  await ctx.render('blog', Object.assign(ctx.state, {
+    layout: 'social',
+    pageTitle: 'Blog | London School of Digital Marketing',
+    blogPosts: topicPosts,
+    activeTopics,
+    currentTopic
+  }));
+}).get('/:postid/:postslug', async ctx => {
+  const { data: [blogPost] } = await _directus2.default.getItems('blog', {
+    filters: { id: ctx.params.postid }
+  });
+  await ctx.render('blog-post', Object.assign(ctx.state, {
+    layout: 'social',
+    pageTitle: `${ blogPost.title } | London School of Digital Marketing`,
+    blogPost
+  }));
+});
+
+exports.default = blogRouter;
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _koaRouter = __webpack_require__(0);
+
+var _koaRouter2 = _interopRequireDefault(_koaRouter);
+
+var _stripe = __webpack_require__(23);
 
 var _stripe2 = _interopRequireDefault(_stripe);
 
@@ -577,7 +679,7 @@ var _index = __webpack_require__(1);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _directus = __webpack_require__(3);
+var _directus = __webpack_require__(2);
 
 var _directus2 = _interopRequireDefault(_directus);
 
@@ -694,7 +796,7 @@ const courseRouter = new _koaRouter2.default().get('/', async ctx => {
 exports.default = courseRouter;
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -720,7 +822,7 @@ const diagnosticRouter = new _koaRouter2.default().get('/start', async ctx => {
 exports.default = diagnosticRouter;
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -734,7 +836,7 @@ var _koaRouter = __webpack_require__(0);
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
-var _validator = __webpack_require__(23);
+var _validator = __webpack_require__(24);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -810,43 +912,43 @@ const formRouter = new _koaRouter2.default().post('/:form', async (ctx, next) =>
 exports.default = formRouter;
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 module.exports = require("directus-sdk-javascript");
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 module.exports = require("hubspot");
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 module.exports = require("mailgun-js");
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 module.exports = require("request");
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 module.exports = require("stripe");
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 module.exports = require("validator");

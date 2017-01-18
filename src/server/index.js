@@ -10,6 +10,16 @@ import router from './routes';
 
 const log = bunyan.createLogger({ name: 'LSDM' });
 
+hbs.registerHelper('cut', (text) => {
+  const index = text.indexOf('<p>', 1000);
+
+  return new hbs.SafeString(text.substring(0, index));
+});
+
+hbs.registerHelper('encodeMyString', (i) => {
+  return new hbs.SafeString(i.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"'));
+});
+
 new Koa()
   .use(convert(body()))
   .use(convert(hbs.middleware({

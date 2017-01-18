@@ -1,10 +1,19 @@
 /* eslint-env browser */
+import 'cookieconsent2';
 import hyperform from 'hyperform/dist/hyperform.cjs.min';
 import smoothscroll from 'smoothscroll-polyfill';
 import svg4everybody from 'svg4everybody';
 import Swiper from 'swiper/dist/js/swiper.min';
 import buttonsToHeader from './modules/buttonsToHeader';
 import formListener from './modules/forms';
+
+window.cookieconsent_options = {
+  message: 'We use cookies to ensure you get the best experience on our website',
+  dismiss: 'Got it!',
+  learnMore: 'More info',
+  link: null,
+  theme: 'dark-floating',
+};
 
 hyperform(window);
 smoothscroll.polyfill();

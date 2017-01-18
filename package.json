@@ -20,6 +20,7 @@
     "bootstrap": "next",
     "bunyan": "^1.8.5",
     "co": "^4.6.0",
+    "cookieconsent2": "^1.0.10-2",
     "directus-sdk-javascript": "^1.1.1",
     "dotenv": "^4.0.0",
     "hubspot": "^0.4.2",

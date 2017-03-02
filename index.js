@@ -68,13 +68,13 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("koa-router");
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -153,9 +153,9 @@ new _koa2.default().use((0, _koaConvert2.default)((0, _koaBetterBody2.default)()
 
 exports.default = log;
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -197,15 +197,15 @@ async function loadBaseData() {
 
 exports.default = directus;
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("path");
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -250,7 +250,7 @@ function addContact(contact) {
 const pipelines = {
   getID: location => new Promise(resolve => {
     _request2.default.get({
-      url: `https://api.hubapi.com/deals/v1/pipelines?hapikey=${ process.env.HS_KEY }&portalId=2651862`
+      url: `https://api.hubapi.com/deals/v1/pipelines?hapikey=${process.env.HS_KEY}&portalId=2651862`
     }, (err, res, body) => {
       const j = JSON.parse(body);
       Array.from(j).forEach(pipeline => {
@@ -262,7 +262,7 @@ const pipelines = {
   }),
   getLocation: pipelineID => new Promise(resolve => {
     _request2.default.get({
-      url: `https://api.hubapi.com/deals/v1/pipelines/${ pipelineID }?hapikey=${ process.env.HS_KEY }&portalId=2651862`
+      url: `https://api.hubapi.com/deals/v1/pipelines/${pipelineID}?hapikey=${process.env.HS_KEY}&portalId=2651862`
     }, (err, res, body) => {
       const j = JSON.parse(body);
       resolve(j.label);
@@ -274,16 +274,16 @@ function formatDate(date, courseID) {
   if (courseID === '10') {
     const endDate = new Date(date);
     endDate.setTime(endDate.getTime() + 5 * 86400000);
-    return `${ date.getDate() } ${ date.toLocaleDateString('en', { month: 'short' }) } - ${ endDate.getDate() } ${ endDate.toLocaleDateString('en', { month: 'short' }) } ${ endDate.getFullYear() }`;
+    return `${date.getDate()} ${date.toLocaleDateString('en', { month: 'short' })} - ${endDate.getDate()} ${endDate.toLocaleDateString('en', { month: 'short' })} ${endDate.getFullYear()}`;
   }
-  return `${ date.getDate() } ${ date.toLocaleDateString('en', { month: 'short' }) } ${ date.getFullYear() }`;
+  return `${date.getDate()} ${date.toLocaleDateString('en', { month: 'short' })} ${date.getFullYear()}`;
 }
 
 async function getDates(location, course) {
   const pipelineID = await pipelines.getID(location);
   return new Promise(resolve => {
     _request2.default.get({
-      url: `https://api.hubapi.com/deals/v1/deal/paged?hapikey=${ process.env.HS_KEY }&portalId=2651862&includeAssociations=true&properties=pipeline&properties=course_size&properties=closedate&properties=amount&properties=course`
+      url: `https://api.hubapi.com/deals/v1/deal/paged?hapikey=${process.env.HS_KEY}&portalId=2651862&includeAssociations=true&properties=pipeline&properties=course_size&properties=closedate&properties=amount&properties=course`
     }, (err, res, body) => {
       const j = JSON.parse(body);
       const courses = [];
@@ -295,7 +295,7 @@ async function getDates(location, course) {
             id: deal.dealId,
             location,
             date: formatDate(courseDate, course),
-            price: `£${ prop.amount.value }.00`,
+            price: `£${prop.amount.value}.00`,
             full: prop.num_associated_contacts.value >= prop.course_size.value
           });
           return;
@@ -309,7 +309,7 @@ async function getDates(location, course) {
 async function getDeal(dealID, courseID) {
   return new Promise((resolve, reject) => {
     _request2.default.get({
-      url: `https://api.hubapi.com/deals/v1/deal/${ dealID }?hapikey=${ process.env.HS_KEY }&portalId=2651862`
+      url: `https://api.hubapi.com/deals/v1/deal/${dealID}?hapikey=${process.env.HS_KEY}&portalId=2651862`
     }, (err, res, body) => {
       const j = JSON.parse(body);
       if (j.status && j.status.error) {
@@ -333,7 +333,7 @@ async function getDeal(dealID, courseID) {
 }
 
 function associateDeal(contactID, dealID) {
-  const url = `https://api.hubapi.com/deals/v1/deal/${ dealID }/associations/CONTACT?id=${ contactID }&hapikey=${ process.env.HS_KEY }&portalId=2651862`;
+  const url = `https://api.hubapi.com/deals/v1/deal/${dealID}/associations/CONTACT?id=${contactID}&hapikey=${process.env.HS_KEY}&portalId=2651862`;
   return new Promise(resolve => {
     _request2.default.put({
       url
@@ -355,9 +355,9 @@ exports.default = {
   getDeal
 };
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -432,7 +432,7 @@ const index = new _koaRouter2.default().get(/^\/(.*)(?:\/|$)/, async (ctx, next)
   try {
     const [page] = ctx.state.pages.filter(p => p.link === ctx.params.page);
     await ctx.render(page.link, Object.assign(page, {
-      pageTitle: `${ page.name } | London School of Digital Marketing`,
+      pageTitle: `${page.name} | London School of Digital Marketing`,
       nav: ctx.state.nav
     }));
   } catch (err) {
@@ -442,51 +442,51 @@ const index = new _koaRouter2.default().get(/^\/(.*)(?:\/|$)/, async (ctx, next)
 
 exports.default = index;
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("bunyan");
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("co");
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("dotenv/config");
 
-/***/ },
+/***/ }),
 /* 9 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("koa");
 
-/***/ },
+/***/ }),
 /* 10 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("koa-better-body");
 
-/***/ },
+/***/ }),
 /* 11 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("koa-convert");
 
-/***/ },
+/***/ }),
 /* 12 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("koa-hbs");
 
-/***/ },
+/***/ }),
 /* 13 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -529,16 +529,16 @@ async function addToList(address) {
 
 async function sendNewContact(hubspotID, fields) {
   try {
-    const studentName = `${ fields.firstname } ${ fields.lastname }`;
-    const hubspotLink = `https://app.hubspot.com/sales/2651862/contact/${ hubspotID }/`;
+    const studentName = `${fields.firstname} ${fields.lastname}`;
+    const hubspotLink = `https://app.hubspot.com/sales/2651862/contact/${hubspotID}/`;
     const message = {
       from: 'System <no-reply@londonschoolofdigitalmarketing.com>',
       to: 'marriott@londonschoolofdigitalmarketing.com',
-      subject: `${ studentName } is a new contact in Hubspot.`,
+      subject: `${studentName} is a new contact in Hubspot.`,
       text: `
-        ${ studentName } is a new contact.
+        ${studentName} is a new contact.
 
-        You can see their contact page here: ${ hubspotLink }
+        You can see their contact page here: ${hubspotLink}
       `
     };
     return await mailgun.messages().send(message);
@@ -549,11 +549,11 @@ async function sendNewContact(hubspotID, fields) {
 
 async function sendQuery(fields) {
   try {
-    const studentName = `${ fields.firstname } ${ fields.lastname }`;
+    const studentName = `${fields.firstname} ${fields.lastname}`;
     const message = {
-      from: `${ studentName } <${ fields.email }>`,
+      from: `${studentName} <${fields.email}>`,
       to: 'marriott@londonschoolofdigitalmarketing.com',
-      subject: `${ studentName } has a question.`,
+      subject: `${studentName} has a question.`,
       text: fields.query
     };
     return await mailgun.messages().send(message);
@@ -568,9 +568,9 @@ exports.default = {
   sendQuery
 };
 
-/***/ },
+/***/ }),
 /* 14 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -651,16 +651,16 @@ const blogRouter = new _koaRouter2.default().get('/', async ctx => {
   });
   await ctx.render('blog-post', Object.assign(ctx.state, {
     layout: 'social',
-    pageTitle: `${ blogPost.title } | London School of Digital Marketing`,
+    pageTitle: `${blogPost.title} | London School of Digital Marketing`,
     blogPost
   }));
 });
 
 exports.default = blogRouter;
 
-/***/ },
+/***/ }),
 /* 15 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -733,7 +733,7 @@ const courseRouter = new _koaRouter2.default().get('/', async ctx => {
       }));
     }
     await ctx.render(templateName, Object.assign(ctx.state, {
-      pageTitle: `${ page.name } | London School of Digital Marketing`,
+      pageTitle: `${page.name} | London School of Digital Marketing`,
       page
     }));
   } catch (err) {
@@ -752,7 +752,7 @@ const courseRouter = new _koaRouter2.default().get('/', async ctx => {
     const deal = await _hubspot2.default.getDeal(ctx.params.dealid, course.id);
     await ctx.render('enrol', Object.assign(ctx.state, {
       layout: 'enrol',
-      pageTitle: `${ course.name } | London School of Digital Marketing`,
+      pageTitle: `${course.name} | London School of Digital Marketing`,
       course,
       deal
     }));
@@ -797,9 +797,9 @@ const courseRouter = new _koaRouter2.default().get('/', async ctx => {
 
 exports.default = courseRouter;
 
-/***/ },
+/***/ }),
 /* 16 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -823,9 +823,9 @@ const diagnosticRouter = new _koaRouter2.default().get('/start', async ctx => {
 
 exports.default = diagnosticRouter;
 
-/***/ },
+/***/ }),
 /* 17 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -904,7 +904,7 @@ const formRouter = new _koaRouter2.default().post('/:form', async (ctx, next) =>
   if (contact.isNew) {
     await _mailgun2.default.sendNewContact(contact.vid, ctx.request.fields);
   }
-  ctx.redirect(`/pdf/${ ctx.params.course }.pdf`);
+  ctx.redirect(`/pdf/${ctx.params.course}.pdf`);
 }).post('/newsletter', async ctx => {
   await _mailgun2.default.addToList(ctx.request.fields.email);
   ctx.status = 200;
@@ -913,47 +913,47 @@ const formRouter = new _koaRouter2.default().post('/:form', async (ctx, next) =>
 
 exports.default = formRouter;
 
-/***/ },
+/***/ }),
 /* 18 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("directus-sdk-javascript");
 
-/***/ },
+/***/ }),
 /* 19 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("fs");
 
-/***/ },
+/***/ }),
 /* 20 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("hubspot");
 
-/***/ },
+/***/ }),
 /* 21 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("mailgun-js");
 
-/***/ },
+/***/ }),
 /* 22 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("request");
 
-/***/ },
+/***/ }),
 /* 23 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("stripe");
 
-/***/ },
+/***/ }),
 /* 24 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("validator");
 
-/***/ }
+/***/ })
 /******/ ]);

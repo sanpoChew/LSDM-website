@@ -1,6 +1,6 @@
+import 'dotenv/config';
 import bunyan from 'bunyan';
 import co from 'co';
-import 'dotenv/config';
 import Koa from 'koa';
 import body from 'koa-better-body';
 import convert from 'koa-convert';
@@ -16,9 +16,9 @@ hbs.registerHelper('cut', (text) => {
   return new hbs.SafeString(text.substring(0, index));
 });
 
-hbs.registerHelper('encodeMyString', (i) => {
-  return new hbs.SafeString(i.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"'));
-});
+hbs.registerHelper('encodeMyString', i =>
+  new hbs.SafeString(i.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')),
+);
 
 new Koa()
   .use(convert(body()))

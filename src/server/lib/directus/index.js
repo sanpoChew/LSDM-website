@@ -10,7 +10,7 @@ const directusURL = () => {
 const directus = new Client(
   process.env.DI_KEY,
   directusURL(),
-  1.1
+  1.1,
 );
 
 export async function loadBaseData() {

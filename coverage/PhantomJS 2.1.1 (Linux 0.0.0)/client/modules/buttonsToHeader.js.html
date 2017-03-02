@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for client/modules/buttonsToHeader.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">client/modules/</a> buttonsToHeader.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.13% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>1/32</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.13% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>1/32</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-env browser */
+&nbsp;
+function getBreakPoint(buttons) <span class="fstat-no" title="function not covered" >{</span>
+  const positions = <span class="cstat-no" title="statement not covered" >[].map.call(buttons, (button) =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+    const btnTop = <span class="cstat-no" title="statement not covered" >button.getBoundingClientRect().top;</span>
+    const scrollTop = <span class="cstat-no" title="statement not covered" >window.scrollY || document.documentElement.scrollTop;</span>
+<span class="cstat-no" title="statement not covered" >    return (btnTop + scrollTop);</span>
+  });
+<span class="cstat-no" title="statement not covered" >  return Math.max(...positions);</span>
+}
+&nbsp;
+function addButtonsToHeader(buttons) <span class="fstat-no" title="function not covered" >{</span>
+  const buttonAnchor = <span class="cstat-no" title="statement not covered" >document.querySelector('#button-anchor');</span>
+<span class="cstat-no" title="statement not covered" >  if (buttonAnchor.offsetWidth &lt; 350) { // 295 is absolute minimum</span>
+    const navLinks = <span class="cstat-no" title="statement not covered" >document.querySelectorAll('.navLink');</span>
+<span class="cstat-no" title="statement not covered" >    navLinks.forEach((link) =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >      link.style.display = 'none';</span>
+    });
+  }
+<span class="cstat-no" title="statement not covered" >  buttons.forEach((button) =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+    const newButton = <span class="cstat-no" title="statement not covered" >button.cloneNode(true);</span>
+<span class="cstat-no" title="statement not covered" >    if (newButton.getAttribute('for') === 'diploma_formcontrol') {</span>
+<span class="cstat-no" title="statement not covered" >      newButton.addEventListener('click', () =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >        window.scrollTo(0, 0);</span>
+      });
+    }
+<span class="cstat-no" title="statement not covered" >    buttonAnchor.appendChild(newButton);</span>
+  });
+}
+&nbsp;
+function removeButtonsFromHeader() <span class="fstat-no" title="function not covered" >{</span>
+  const buttons = <span class="cstat-no" title="statement not covered" >document.querySelectorAll('#button-anchor .moveToHeader');</span>
+<span class="cstat-no" title="statement not covered" >  buttons.forEach((button) =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >    button.parentNode.removeChild(button);</span>
+  });
+  const navLinks = <span class="cstat-no" title="statement not covered" >document.querySelectorAll('.navLink');</span>
+<span class="cstat-no" title="statement not covered" >  navLinks.forEach((link) =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >    link.removeAttribute('style');</span>
+  });
+}
+&nbsp;
+const buttonsToHeader = (buttons) =&gt; <span class="fstat-no" title="function not covered" >{</span>
+  const breakPoint = <span class="cstat-no" title="statement not covered" >getBreakPoint(buttons);</span>
+  let buttonsInHeader = <span class="cstat-no" title="statement not covered" >false;</span>
+<span class="cstat-no" title="statement not covered" >  window.addEventListener('scroll', () =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >    if (window.scrollY &gt; breakPoint &amp;&amp; !buttonsInHeader) {</span>
+<span class="cstat-no" title="statement not covered" >      addButtonsToHeader(buttons);</span>
+<span class="cstat-no" title="statement not covered" >      buttonsInHeader = true;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (window.scrollY &lt; breakPoint &amp;&amp; buttonsInHeader) {</span>
+<span class="cstat-no" title="statement not covered" >      removeButtonsFromHeader();</span>
+<span class="cstat-no" title="statement not covered" >      buttonsInHeader = false;</span>
+    }
+  });
+};
+&nbsp;
+export default buttonsToHeader;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Jan 29 2017 02:01:31 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

@@ -68,13 +68,13 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("koa-router");
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -83,6 +83,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+__webpack_require__(8);
+
 var _bunyan = __webpack_require__(6);
 
 var _bunyan2 = _interopRequireDefault(_bunyan);
@@ -90,8 +92,6 @@ var _bunyan2 = _interopRequireDefault(_bunyan);
 var _co = __webpack_require__(7);
 
 var _co2 = _interopRequireDefault(_co);
-
-__webpack_require__(8);
 
 var _koa = __webpack_require__(9);
 
@@ -119,6 +119,8 @@ var _routes2 = _interopRequireDefault(_routes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 const log = _bunyan2.default.createLogger({ name: 'LSDM' });
 
 _koaHbs2.default.registerHelper('cut', text => {
@@ -127,9 +129,7 @@ _koaHbs2.default.registerHelper('cut', text => {
   return new _koaHbs2.default.SafeString(text.substring(0, index));
 });
 
-_koaHbs2.default.registerHelper('encodeMyString', i => {
-  return new _koaHbs2.default.SafeString(i.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"'));
-});
+_koaHbs2.default.registerHelper('encodeMyString', i => new _koaHbs2.default.SafeString(i.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')));
 
 new _koa2.default().use((0, _koaConvert2.default)((0, _koaBetterBody2.default)())).use((0, _koaConvert2.default)(_koaHbs2.default.middleware({
   viewPath: _path2.default.resolve('./src/views/pages'),
@@ -137,25 +137,45 @@ new _koa2.default().use((0, _koaConvert2.default)((0, _koaBetterBody2.default)()
   layoutsPath: _path2.default.resolve('./src/views/layouts'),
   defaultLayout: 'default',
   disableCache: true
-}))).use(async (ctx, next) => {
-  const render = ctx.render;
-  ctx.render = async function _convertedRender(...args) {
-    return _co2.default.call(ctx, render.apply(ctx, args));
+}))).use((() => {
+  var _ref = _asyncToGenerator(function* (ctx, next) {
+    const render = ctx.render;
+    ctx.render = (() => {
+      var _ref2 = _asyncToGenerator(function* (...args) {
+        return _co2.default.call(ctx, render.apply(ctx, args));
+      });
+
+      function _convertedRender() {
+        return _ref2.apply(this, arguments);
+      }
+
+      return _convertedRender;
+    })();
+    yield next();
+  });
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
   };
-  await next();
-}).use(async (ctx, next) => {
-  try {
-    await next();
-  } catch (err) {
-    log.error(err);
-  }
-}).use(_routes2.default.routes()).listen(3000);
+})()).use((() => {
+  var _ref3 = _asyncToGenerator(function* (ctx, next) {
+    try {
+      yield next();
+    } catch (err) {
+      log.error(err);
+    }
+  });
+
+  return function (_x3, _x4) {
+    return _ref3.apply(this, arguments);
+  };
+})()).use(_routes2.default.routes()).listen(3000);
 
 exports.default = log;
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -163,13 +183,40 @@ exports.default = log;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.loadBaseData = loadBaseData;
+exports.loadBaseData = undefined;
+
+let loadBaseData = exports.loadBaseData = (() => {
+  var _ref = _asyncToGenerator(function* () {
+    try {
+      const { data: pages } = yield directus.getItems('pages', {
+        columns: 'name,link'
+      });
+      return {
+        nav: pages.filter(function (page) {
+          return page.type === 'Main';
+        }),
+        courses: pages.filter(function (page) {
+          return page.type === 'Course';
+        }),
+        pages
+      };
+    } catch (err) {
+      return new Error({ err });
+    }
+  });
+
+  return function loadBaseData() {
+    return _ref.apply(this, arguments);
+  };
+})();
 
 var _directusSdkJavascript = __webpack_require__(18);
 
 var _directusSdkJavascript2 = _interopRequireDefault(_directusSdkJavascript);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 const directusURL = () => {
   if (process.env.NODE_ENV === 'production') {
@@ -180,32 +227,17 @@ const directusURL = () => {
 
 const directus = new _directusSdkJavascript2.default(process.env.DI_KEY, directusURL(), 1.1);
 
-async function loadBaseData() {
-  try {
-    const { data: pages } = await directus.getItems('pages', {
-      columns: 'name,link'
-    });
-    return {
-      nav: pages.filter(page => page.type === 'Main'),
-      courses: pages.filter(page => page.type === 'Course'),
-      pages
-    };
-  } catch (err) {
-    return new Error({ err });
-  }
-}
-
 exports.default = directus;
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("path");
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -213,6 +245,71 @@ module.exports = require("path");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+let getDates = (() => {
+  var _ref = _asyncToGenerator(function* (location, course) {
+    const pipelineID = yield pipelines.getID(location);
+    return new Promise(function (resolve) {
+      _request2.default.get({
+        url: `https://api.hubapi.com/deals/v1/deal/paged?hapikey=${process.env.HS_KEY}&portalId=2651862&includeAssociations=true&properties=pipeline&properties=course_size&properties=closedate&properties=amount&properties=course`
+      }, function (err, res, body) {
+        const j = JSON.parse(body);
+        const courses = [];
+        j.deals.forEach(function (deal) {
+          const prop = deal.properties;
+          if (!deal.isDeleted && prop.pipeline.value === pipelineID && prop.course.value === course && prop.closedate.value >= Date.now()) {
+            const courseDate = new Date(Number(prop.closedate.value));
+            courses.push({
+              id: deal.dealId,
+              location,
+              date: formatDate(courseDate, course),
+              price: `£${prop.amount.value}.00`,
+              full: prop.num_associated_contacts.value >= prop.course_size.value
+            });
+            return;
+          }
+        });
+        resolve(courses);
+      });
+    });
+  });
+
+  return function getDates(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+let getDeal = (() => {
+  var _ref2 = _asyncToGenerator(function* (dealID, courseID) {
+    return new Promise(function (resolve, reject) {
+      _request2.default.get({
+        url: `https://api.hubapi.com/deals/v1/deal/${dealID}?hapikey=${process.env.HS_KEY}&portalId=2651862`
+      }, function (err, res, body) {
+        const j = JSON.parse(body);
+        if (j.status && j.status.error) {
+          reject(j);
+          return;
+        }
+        if (j.properties.num_associated_contacts.value >= j.properties.course_size.value) {
+          reject({ full: true });
+          return;
+        }
+        pipelines.getLocation(j.properties.pipeline.value).then(function (location) {
+          resolve({
+            id: dealID,
+            date: formatDate(new Date(Number(j.properties.closedate.value)), courseID),
+            price: j.properties.amount.value,
+            location
+          });
+        });
+      });
+    });
+  });
+
+  return function getDeal(_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+})();
 
 var _hubspot = __webpack_require__(20);
 
@@ -227,6 +324,8 @@ var _index = __webpack_require__(1);
 var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 const client = new _hubspot2.default();
 client.useKey(process.env.HS_KEY);
@@ -250,7 +349,7 @@ function addContact(contact) {
 const pipelines = {
   getID: location => new Promise(resolve => {
     _request2.default.get({
-      url: `https://api.hubapi.com/deals/v1/pipelines?hapikey=${ process.env.HS_KEY }&portalId=2651862`
+      url: `https://api.hubapi.com/deals/v1/pipelines?hapikey=${process.env.HS_KEY}&portalId=2651862`
     }, (err, res, body) => {
       const j = JSON.parse(body);
       Array.from(j).forEach(pipeline => {
@@ -262,7 +361,7 @@ const pipelines = {
   }),
   getLocation: pipelineID => new Promise(resolve => {
     _request2.default.get({
-      url: `https://api.hubapi.com/deals/v1/pipelines/${ pipelineID }?hapikey=${ process.env.HS_KEY }&portalId=2651862`
+      url: `https://api.hubapi.com/deals/v1/pipelines/${pipelineID}?hapikey=${process.env.HS_KEY}&portalId=2651862`
     }, (err, res, body) => {
       const j = JSON.parse(body);
       resolve(j.label);
@@ -274,66 +373,13 @@ function formatDate(date, courseID) {
   if (courseID === '10') {
     const endDate = new Date(date);
     endDate.setTime(endDate.getTime() + 5 * 86400000);
-    return `${ date.getDate() } ${ date.toLocaleDateString('en', { month: 'short' }) } - ${ endDate.getDate() } ${ endDate.toLocaleDateString('en', { month: 'short' }) } ${ endDate.getFullYear() }`;
+    return `${date.getDate()} ${date.toLocaleDateString('en', { month: 'short' })} - ${endDate.getDate()} ${endDate.toLocaleDateString('en', { month: 'short' })} ${endDate.getFullYear()}`;
   }
-  return `${ date.getDate() } ${ date.toLocaleDateString('en', { month: 'short' }) } ${ date.getFullYear() }`;
-}
-
-async function getDates(location, course) {
-  const pipelineID = await pipelines.getID(location);
-  return new Promise(resolve => {
-    _request2.default.get({
-      url: `https://api.hubapi.com/deals/v1/deal/paged?hapikey=${ process.env.HS_KEY }&portalId=2651862&includeAssociations=true&properties=pipeline&properties=course_size&properties=closedate&properties=amount&properties=course`
-    }, (err, res, body) => {
-      const j = JSON.parse(body);
-      const courses = [];
-      j.deals.forEach(deal => {
-        const prop = deal.properties;
-        if (!deal.isDeleted && prop.pipeline.value === pipelineID && prop.course.value === course && prop.closedate.value >= Date.now()) {
-          const courseDate = new Date(Number(prop.closedate.value));
-          courses.push({
-            id: deal.dealId,
-            location,
-            date: formatDate(courseDate, course),
-            price: `£${ prop.amount.value }.00`,
-            full: prop.num_associated_contacts.value >= prop.course_size.value
-          });
-          return;
-        }
-      });
-      resolve(courses);
-    });
-  });
-}
-
-async function getDeal(dealID, courseID) {
-  return new Promise((resolve, reject) => {
-    _request2.default.get({
-      url: `https://api.hubapi.com/deals/v1/deal/${ dealID }?hapikey=${ process.env.HS_KEY }&portalId=2651862`
-    }, (err, res, body) => {
-      const j = JSON.parse(body);
-      if (j.status && j.status.error) {
-        reject(j);
-        return;
-      }
-      if (j.properties.num_associated_contacts.value >= j.properties.course_size.value) {
-        reject({ full: true });
-        return;
-      }
-      pipelines.getLocation(j.properties.pipeline.value).then(location => {
-        resolve({
-          id: dealID,
-          date: formatDate(new Date(Number(j.properties.closedate.value)), courseID),
-          price: j.properties.amount.value,
-          location
-        });
-      });
-    });
-  });
+  return `${date.getDate()} ${date.toLocaleDateString('en', { month: 'short' })} ${date.getFullYear()}`;
 }
 
 function associateDeal(contactID, dealID) {
-  const url = `https://api.hubapi.com/deals/v1/deal/${ dealID }/associations/CONTACT?id=${ contactID }&hapikey=${ process.env.HS_KEY }&portalId=2651862`;
+  const url = `https://api.hubapi.com/deals/v1/deal/${dealID}/associations/CONTACT?id=${contactID}&hapikey=${process.env.HS_KEY}&portalId=2651862`;
   return new Promise(resolve => {
     _request2.default.put({
       url
@@ -355,9 +401,9 @@ exports.default = {
   getDeal
 };
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -402,91 +448,113 @@ var _directus = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 const assetPaths = () => {
-  const manifest = _fs2.default.readFileSync('./res/webpack-manifest.json');
+  const manifest = _fs2.default.readFileSync('./dist/manifest.json');
   const parsed = JSON.parse(manifest);
   return Object.assign(parsed, {
-    'style.css': _path2.default.basename(parsed['style.css']),
-    'base.js': _path2.default.basename(parsed['base.js'])
+    'style.css': _path2.default.basename(parsed['bundle.css']),
+    'base.js': _path2.default.basename(parsed['bundle.js'])
   });
 };
 
-const index = new _koaRouter2.default().get(/^\/(.*)(?:\/|$)/, async (ctx, next) => {
-  try {
-    const baseData = await (0, _directus.loadBaseData)();
-    ctx.state = baseData;
-    ctx.state.assetPaths = assetPaths();
-    await next();
-  } catch (err) {
-    _index2.default.error({ err });
-  }
-}).use('/blog', _blog2.default.routes(), _blog2.default.allowedMethods()).use('/courses', _courses2.default.routes(), _courses2.default.allowedMethods()).use('/diagnostic-tool', _diagnostic2.default.routes(), _diagnostic2.default.allowedMethods()).use('/forms', _forms2.default.routes(), _forms2.default.allowedMethods()).get('/', async ctx => {
-  try {
-    await ctx.render('home', Object.assign(ctx.state, {
-      pageTitle: 'Home | London School of Digital Marketing'
-    }));
-  } catch (err) {
-    _index2.default.error({ err });
-  }
-}).get('/:page', async ctx => {
-  try {
-    const [page] = ctx.state.pages.filter(p => p.link === ctx.params.page);
-    await ctx.render(page.link, Object.assign(page, {
-      pageTitle: `${ page.name } | London School of Digital Marketing`,
-      nav: ctx.state.nav
-    }));
-  } catch (err) {
-    _index2.default.error({ err });
-  }
-});
+const index = new _koaRouter2.default().get(/^\/(.*)(?:\/|$)/, (() => {
+  var _ref = _asyncToGenerator(function* (ctx, next) {
+    try {
+      const baseData = yield (0, _directus.loadBaseData)();
+      ctx.state = baseData;
+      ctx.state.assetPaths = assetPaths();
+      yield next();
+    } catch (err) {
+      _index2.default.error({ err });
+    }
+  });
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})()).use('/blog', _blog2.default.routes(), _blog2.default.allowedMethods()).use('/courses', _courses2.default.routes(), _courses2.default.allowedMethods()).use('/diagnostic-tool', _diagnostic2.default.routes(), _diagnostic2.default.allowedMethods()).use('/forms', _forms2.default.routes(), _forms2.default.allowedMethods()).get('/', (() => {
+  var _ref2 = _asyncToGenerator(function* (ctx) {
+    try {
+      yield ctx.render('home', Object.assign(ctx.state, {
+        pageTitle: 'Home | London School of Digital Marketing'
+      }));
+    } catch (err) {
+      _index2.default.error({ err });
+    }
+  });
+
+  return function (_x3) {
+    return _ref2.apply(this, arguments);
+  };
+})()).get('/:page', (() => {
+  var _ref3 = _asyncToGenerator(function* (ctx) {
+    try {
+      const [page] = ctx.state.pages.filter(function (p) {
+        return p.link === ctx.params.page;
+      });
+      yield ctx.render(page.link, Object.assign(page, {
+        pageTitle: `${page.name} | London School of Digital Marketing`,
+        nav: ctx.state.nav
+      }));
+    } catch (err) {
+      _index2.default.error({ err });
+    }
+  });
+
+  return function (_x4) {
+    return _ref3.apply(this, arguments);
+  };
+})());
 
 exports.default = index;
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("bunyan");
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("co");
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("dotenv/config");
 
-/***/ },
+/***/ }),
 /* 9 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("koa");
 
-/***/ },
+/***/ }),
 /* 10 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("koa-better-body");
 
-/***/ },
+/***/ }),
 /* 11 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("koa-convert");
 
-/***/ },
+/***/ }),
 /* 12 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("koa-hbs");
 
-/***/ },
+/***/ }),
 /* 13 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -495,11 +563,92 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+let checkListSub = (() => {
+  var _ref = _asyncToGenerator(function* (address) {
+    try {
+      const { member: { subscribed } } = yield mailgun.lists(list).members(address).info();
+      return subscribed;
+    } catch (err) {
+      return false;
+    }
+  });
+
+  return function checkListSub(_x) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+let addToList = (() => {
+  var _ref2 = _asyncToGenerator(function* (address) {
+    try {
+      yield mailgun.lists(list).members().create({ subscribed: true, address });
+    } catch (err) {
+      const subscribed = checkListSub(address);
+      if (!subscribed) {
+        throw err;
+      }
+    }
+  });
+
+  return function addToList(_x2) {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
+let sendNewContact = (() => {
+  var _ref3 = _asyncToGenerator(function* (hubspotID, fields) {
+    try {
+      const studentName = `${fields.firstname} ${fields.lastname}`;
+      const hubspotLink = `https://app.hubspot.com/sales/2651862/contact/${hubspotID}/`;
+      const message = {
+        from: 'System <no-reply@londonschoolofdigitalmarketing.com>',
+        to: 'marriott@londonschoolofdigitalmarketing.com',
+        subject: `${studentName} is a new contact in Hubspot.`,
+        text: `
+        ${studentName} is a new contact.
+
+        You can see their contact page here: ${hubspotLink}
+      `
+      };
+      return yield mailgun.messages().send(message);
+    } catch (err) {
+      throw err;
+    }
+  });
+
+  return function sendNewContact(_x3, _x4) {
+    return _ref3.apply(this, arguments);
+  };
+})();
+
+let sendQuery = (() => {
+  var _ref4 = _asyncToGenerator(function* (fields) {
+    try {
+      const studentName = `${fields.firstname} ${fields.lastname}`;
+      const message = {
+        from: `${studentName} <${fields.email}>`,
+        to: 'marriott@londonschoolofdigitalmarketing.com',
+        subject: `${studentName} has a question.`,
+        text: fields.query
+      };
+      return yield mailgun.messages().send(message);
+    } catch (err) {
+      throw err;
+    }
+  });
+
+  return function sendQuery(_x5) {
+    return _ref4.apply(this, arguments);
+  };
+})();
+
 var _mailgunJs = __webpack_require__(21);
 
 var _mailgunJs2 = _interopRequireDefault(_mailgunJs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 const list = 'newsletter@mg.londonschoolofdigitalmarketing.com';
 const mailgun = new _mailgunJs2.default({
@@ -507,70 +656,15 @@ const mailgun = new _mailgunJs2.default({
   domain: process.env.MG_DOMAIN
 });
 
-async function checkListSub(address) {
-  try {
-    const { member: { subscribed } } = await mailgun.lists(list).members(address).info();
-    return subscribed;
-  } catch (err) {
-    return false;
-  }
-}
-
-async function addToList(address) {
-  try {
-    await mailgun.lists(list).members().create({ subscribed: true, address });
-  } catch (err) {
-    const subscribed = checkListSub(address);
-    if (!subscribed) {
-      throw err;
-    }
-  }
-}
-
-async function sendNewContact(hubspotID, fields) {
-  try {
-    const studentName = `${ fields.firstname } ${ fields.lastname }`;
-    const hubspotLink = `https://app.hubspot.com/sales/2651862/contact/${ hubspotID }/`;
-    const message = {
-      from: 'System <no-reply@londonschoolofdigitalmarketing.com>',
-      to: 'marriott@londonschoolofdigitalmarketing.com',
-      subject: `${ studentName } is a new contact in Hubspot.`,
-      text: `
-        ${ studentName } is a new contact.
-
-        You can see their contact page here: ${ hubspotLink }
-      `
-    };
-    return await mailgun.messages().send(message);
-  } catch (err) {
-    throw err;
-  }
-}
-
-async function sendQuery(fields) {
-  try {
-    const studentName = `${ fields.firstname } ${ fields.lastname }`;
-    const message = {
-      from: `${ studentName } <${ fields.email }>`,
-      to: 'marriott@londonschoolofdigitalmarketing.com',
-      subject: `${ studentName } has a question.`,
-      text: fields.query
-    };
-    return await mailgun.messages().send(message);
-  } catch (err) {
-    throw err;
-  }
-}
-
 exports.default = {
   addToList,
   sendNewContact,
   sendQuery
 };
 
-/***/ },
+/***/ }),
 /* 14 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -589,78 +683,114 @@ var _directus2 = _interopRequireDefault(_directus);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const blogRouter = new _koaRouter2.default().get('/', async ctx => {
-  const { data: blogPosts } = await _directus2.default.getItems('blog', {
-    filters: { active: 1 },
-    orderBy: 'id',
-    orderDirection: 'DESC'
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+const blogRouter = new _koaRouter2.default().get('/', (() => {
+  var _ref = _asyncToGenerator(function* (ctx) {
+    const { data: blogPosts } = yield _directus2.default.getItems('blog', {
+      filters: { active: 1 },
+      orderBy: 'id',
+      orderDirection: 'DESC'
+    });
+    const { data: topics } = yield _directus2.default.getItems('topics');
+    const activeTopics = topics.filter(function (t) {
+      const activePosts = t.blog_posts.data.filter(function (p) {
+        return p.active === 1;
+      });
+      if (activePosts.length) {
+        return true;
+      }
+      return false;
+    });
+    yield ctx.render('blog', Object.assign(ctx.state, {
+      layout: 'social',
+      pageTitle: 'Blog | London School of Digital Marketing',
+      blogPosts,
+      activeTopics
+    }));
   });
-  const { data: topics } = await _directus2.default.getItems('topics');
-  const activeTopics = topics.filter(t => {
-    const activePosts = t.blog_posts.data.filter(p => p.active === 1);
-    if (activePosts.length) {
-      return true;
-    }
-    return false;
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+})()).get('/unpub', (() => {
+  var _ref2 = _asyncToGenerator(function* (ctx) {
+    const { data: blogPosts } = yield _directus2.default.getItems('blog', {
+      filters: { active: 2 },
+      orderBy: 'id',
+      orderDirection: 'DESC'
+    });
+    const { data: topics } = yield _directus2.default.getItems('topics');
+    const activeTopics = topics.filter(function (t) {
+      return t.blog_posts.meta.total > 0;
+    });
+    yield ctx.render('blog', Object.assign(ctx.state, {
+      pageTitle: 'Blog | London School of Digital Marketing',
+      blogPosts,
+      activeTopics
+    }));
   });
-  await ctx.render('blog', Object.assign(ctx.state, {
-    layout: 'social',
-    pageTitle: 'Blog | London School of Digital Marketing',
-    blogPosts,
-    activeTopics
-  }));
-}).get('/unpub', async ctx => {
-  const { data: blogPosts } = await _directus2.default.getItems('blog', {
-    filters: { active: 2 },
-    orderBy: 'id',
-    orderDirection: 'DESC'
+
+  return function (_x2) {
+    return _ref2.apply(this, arguments);
+  };
+})()).get('/:topiclink', (() => {
+  var _ref3 = _asyncToGenerator(function* (ctx) {
+    const { data: blogPosts } = yield _directus2.default.getItems('blog', {
+      filters: { active: 1 },
+      orderBy: 'id',
+      orderDirection: 'DESC'
+    });
+    const { data: topics } = yield _directus2.default.getItems('topics');
+    const activeTopics = topics.filter(function (t) {
+      return t.blog_posts.meta.total > 0;
+    });
+    const [currentTopic] = topics.filter(function (t) {
+      return t.link === ctx.params.topiclink;
+    });
+    const topicPosts = blogPosts.filter(function (p) {
+      const taggedPosts = p.topics.data.filter(function (t) {
+        return t.id === currentTopic.id;
+      });
+      if (taggedPosts.length) {
+        return true;
+      }
+      return false;
+    });
+    yield ctx.render('blog', Object.assign(ctx.state, {
+      layout: 'social',
+      pageTitle: 'Blog | London School of Digital Marketing',
+      blogPosts: topicPosts,
+      activeTopics,
+      currentTopic
+    }));
   });
-  const { data: topics } = await _directus2.default.getItems('topics');
-  const activeTopics = topics.filter(t => t.blog_posts.meta.total > 0);
-  await ctx.render('blog', Object.assign(ctx.state, {
-    pageTitle: 'Blog | London School of Digital Marketing',
-    blogPosts,
-    activeTopics
-  }));
-}).get('/:topiclink', async ctx => {
-  const { data: blogPosts } = await _directus2.default.getItems('blog', {
-    filters: { active: 1 },
-    orderBy: 'id',
-    orderDirection: 'DESC'
+
+  return function (_x3) {
+    return _ref3.apply(this, arguments);
+  };
+})()).get('/:postid/:postslug', (() => {
+  var _ref4 = _asyncToGenerator(function* (ctx) {
+    const { data: [blogPost] } = yield _directus2.default.getItems('blog', {
+      filters: { id: ctx.params.postid }
+    });
+    yield ctx.render('blog-post', Object.assign(ctx.state, {
+      layout: 'social',
+      pageTitle: `${blogPost.title} | London School of Digital Marketing`,
+      blogPost
+    }));
   });
-  const { data: topics } = await _directus2.default.getItems('topics');
-  const activeTopics = topics.filter(t => t.blog_posts.meta.total > 0);
-  const [currentTopic] = topics.filter(t => t.link === ctx.params.topiclink);
-  const topicPosts = blogPosts.filter(p => {
-    const taggedPosts = p.topics.data.filter(t => t.id === currentTopic.id);
-    if (taggedPosts.length) {
-      return true;
-    }
-    return false;
-  });
-  await ctx.render('blog', Object.assign(ctx.state, {
-    layout: 'social',
-    pageTitle: 'Blog | London School of Digital Marketing',
-    blogPosts: topicPosts,
-    activeTopics,
-    currentTopic
-  }));
-}).get('/:postid/:postslug', async ctx => {
-  const { data: [blogPost] } = await _directus2.default.getItems('blog', {
-    filters: { id: ctx.params.postid }
-  });
-  await ctx.render('blog-post', Object.assign(ctx.state, {
-    layout: 'social',
-    pageTitle: `${ blogPost.title } | London School of Digital Marketing`,
-    blogPost
-  }));
-});
+
+  return function (_x4) {
+    return _ref4.apply(this, arguments);
+  };
+})());
 
 exports.default = blogRouter;
 
-/***/ },
+/***/ }),
 /* 15 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -691,115 +821,147 @@ var _hubspot2 = _interopRequireDefault(_hubspot);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 function removeMeta(data, fields = []) {
   return data.map(d => Object.assign(d, ...fields.map(f => ({ [f]: d[f].data[0][f] }))));
 }
 
-const courseRouter = new _koaRouter2.default().get('/', async ctx => {
-  try {
-    const { data } = await _directus2.default.getItems('courses');
-    const parsedData = removeMeta(data, ['link']);
-    const courseData = {
-      long: parsedData.filter(c => c.Type === 'Long Course'),
-      short: parsedData.filter(c => c.Type === 'Short Course').map(c => {
-        if (c.course_content) {
-          return Object.assign(c, {
-            course_content: c.course_content.split('\r\n')
-          });
-        }
-        return c;
-      })
-    };
-    await ctx.render('courses', Object.assign(ctx.state, {
-      pageTitle: 'Our Courses | London School of Digital Marketing',
-      courseData
-    }));
-  } catch (err) {
-    _index2.default.error({ err });
-  }
-}).get('/:course', async ctx => {
-  try {
-    const { data: [page] } = await _directus2.default.getItems('pages', {
-      filters: { link: ctx.params.course }
-    });
-    const templateName = page.course.data.Type === 'Short Course' ? 'module' : 'diploma';
-    if (templateName === 'diploma') {
-      const { data } = await _directus2.default.getItems('courses', {
-        filters: { parent_course: page.course.data.id }
-      });
-      const parsedSubCourses = removeMeta(data, ['link']);
-      page.sub_courses = parsedSubCourses.map(course => Object.assign(course, {
-        course_content: course.course_content.split('\r\n')
+const courseRouter = new _koaRouter2.default().get('/', (() => {
+  var _ref = _asyncToGenerator(function* (ctx) {
+    try {
+      const { data } = yield _directus2.default.getItems('courses');
+      const parsedData = removeMeta(data, ['link']);
+      const courseData = {
+        long: parsedData.filter(function (c) {
+          return c.Type === 'Long Course';
+        }),
+        short: parsedData.filter(function (c) {
+          return c.Type === 'Short Course';
+        }).map(function (c) {
+          if (c.course_content) {
+            return Object.assign(c, {
+              course_content: c.course_content.split('\r\n')
+            });
+          }
+          return c;
+        })
+      };
+      yield ctx.render('courses', Object.assign(ctx.state, {
+        pageTitle: 'Our Courses | London School of Digital Marketing',
+        courseData
       }));
+    } catch (err) {
+      _index2.default.error({ err });
     }
-    await ctx.render(templateName, Object.assign(ctx.state, {
-      pageTitle: `${ page.name } | London School of Digital Marketing`,
-      page
-    }));
-  } catch (err) {
-    _index2.default.error({ err });
-  }
-}).get('/:course/enrol/:dealid', async ctx => {
-  try {
-    const { data: [{
-        course: {
-          data: course
-        }
-      }] } = await _directus2.default.getItems('pages', {
-      filters: { link: ctx.params.course }
-    });
-    course.link = ctx.params.course;
-    const deal = await _hubspot2.default.getDeal(ctx.params.dealid, course.id);
-    await ctx.render('enrol', Object.assign(ctx.state, {
-      layout: 'enrol',
-      pageTitle: `${ course.name } | London School of Digital Marketing`,
-      course,
-      deal
-    }));
-  } catch (err) {
-    _index2.default.error({ err });
-  }
-}).post('/:course/enrol/:dealid/enrol-complete', async ctx => {
-  try {
-    const stripe = (0, _stripe2.default)(process.env.ST_KEY);
-    const { data: [{
-        course: {
-          data: course
-        }
-      }] } = await _directus2.default.getItems('pages', {
-      filters: { link: ctx.params.course }
-    });
-    const charge = await stripe.charges.create({
-      amount: course.price * 100,
-      currency: 'gbp',
-      source: ctx.request.fields.stripeToken,
-      receipt_email: ctx.request.fields.stripeEmail,
-      description: 'Enrolment'
-    });
-    _index2.default.info(charge);
-    const contactFields = Object.assign({}, ctx.request.fields);
-    delete contactFields.stripeToken;
-    delete contactFields.stripeTokenType;
-    delete contactFields.stripeEmail;
-    const contact = await _hubspot2.default.addContact(contactFields);
-    await _hubspot2.default.associateDeal(contact.vid, ctx.params.dealid);
-    const deal = await _hubspot2.default.getDeal(ctx.params.dealid, ctx.params.courseid);
-    await ctx.render('enrol-complete', Object.assign(ctx.state, {
-      layout: 'enrol',
-      pageTitle: 'Enrolment Complete | London School of Digital Marketing',
-      course,
-      deal
-    }));
-  } catch (err) {
-    _index2.default.error({ err });
-  }
-});
+  });
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+})()).get('/:course', (() => {
+  var _ref2 = _asyncToGenerator(function* (ctx) {
+    try {
+      const { data: [page] } = yield _directus2.default.getItems('pages', {
+        filters: { link: ctx.params.course }
+      });
+      const templateName = page.course.data.Type === 'Short Course' ? 'module' : 'diploma';
+      if (templateName === 'diploma') {
+        const { data } = yield _directus2.default.getItems('courses', {
+          filters: { parent_course: page.course.data.id }
+        });
+        const parsedSubCourses = removeMeta(data, ['link']);
+        page.sub_courses = parsedSubCourses.map(function (course) {
+          return Object.assign(course, {
+            course_content: course.course_content.split('\r\n')
+          });
+        });
+      }
+      yield ctx.render(templateName, Object.assign(ctx.state, {
+        pageTitle: `${page.name} | London School of Digital Marketing`,
+        page
+      }));
+    } catch (err) {
+      _index2.default.error({ err });
+    }
+  });
+
+  return function (_x2) {
+    return _ref2.apply(this, arguments);
+  };
+})()).get('/:course/enrol/:dealid', (() => {
+  var _ref3 = _asyncToGenerator(function* (ctx) {
+    try {
+      const { data: [{
+          course: {
+            data: course
+          }
+        }] } = yield _directus2.default.getItems('pages', {
+        filters: { link: ctx.params.course }
+      });
+      course.link = ctx.params.course;
+      const deal = yield _hubspot2.default.getDeal(ctx.params.dealid, course.id);
+      yield ctx.render('enrol', Object.assign(ctx.state, {
+        layout: 'enrol',
+        pageTitle: `${course.name} | London School of Digital Marketing`,
+        course,
+        deal
+      }));
+    } catch (err) {
+      _index2.default.error({ err });
+    }
+  });
+
+  return function (_x3) {
+    return _ref3.apply(this, arguments);
+  };
+})()).post('/:course/enrol/:dealid/enrol-complete', (() => {
+  var _ref4 = _asyncToGenerator(function* (ctx) {
+    try {
+      const stripe = (0, _stripe2.default)(process.env.ST_KEY);
+      const { data: [{
+          course: {
+            data: course
+          }
+        }] } = yield _directus2.default.getItems('pages', {
+        filters: { link: ctx.params.course }
+      });
+      const charge = yield stripe.charges.create({
+        amount: course.price * 100,
+        currency: 'gbp',
+        source: ctx.request.fields.stripeToken,
+        receipt_email: ctx.request.fields.stripeEmail,
+        description: 'Enrolment'
+      });
+      _index2.default.info(charge);
+      const contactFields = Object.assign({}, ctx.request.fields);
+      delete contactFields.stripeToken;
+      delete contactFields.stripeTokenType;
+      delete contactFields.stripeEmail;
+      const contact = yield _hubspot2.default.addContact(contactFields);
+      yield _hubspot2.default.associateDeal(contact.vid, ctx.params.dealid);
+      const deal = yield _hubspot2.default.getDeal(ctx.params.dealid, ctx.params.courseid);
+      yield ctx.render('enrol-complete', Object.assign(ctx.state, {
+        layout: 'enrol',
+        pageTitle: 'Enrolment Complete | London School of Digital Marketing',
+        course,
+        deal
+      }));
+    } catch (err) {
+      _index2.default.error({ err });
+    }
+  });
+
+  return function (_x4) {
+    return _ref4.apply(this, arguments);
+  };
+})());
 
 exports.default = courseRouter;
 
-/***/ },
+/***/ }),
 /* 16 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -814,18 +976,26 @@ var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const diagnosticRouter = new _koaRouter2.default().get('/start', async ctx => {
-  await ctx.render('diagnostic-start', Object.assign(ctx.state, {
-    layout: 'enrol',
-    pageTitle: 'Diagnostic Tool | London School of Digital Marketing'
-  }));
-});
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+const diagnosticRouter = new _koaRouter2.default().get('/start', (() => {
+  var _ref = _asyncToGenerator(function* (ctx) {
+    yield ctx.render('diagnostic-start', Object.assign(ctx.state, {
+      layout: 'enrol',
+      pageTitle: 'Diagnostic Tool | London School of Digital Marketing'
+    }));
+  });
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+})());
 
 exports.default = diagnosticRouter;
 
-/***/ },
+/***/ }),
 /* 17 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -852,6 +1022,8 @@ var _mailgun2 = _interopRequireDefault(_mailgun);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 function validateFields(fields) {
   return new Promise((resolve, reject) => {
     const invalid = [];
@@ -870,90 +1042,120 @@ function validateFields(fields) {
   });
 }
 
-const formRouter = new _koaRouter2.default().post('/:form', async (ctx, next) => {
-  try {
-    await validateFields(ctx.request.fields);
-    await next();
-  } catch (err) {
-    if (err.invalid) {
-      ctx.status = 422;
-      ctx.body = err.invalid;
-      return;
+const formRouter = new _koaRouter2.default().post('/:form', (() => {
+  var _ref = _asyncToGenerator(function* (ctx, next) {
+    try {
+      yield validateFields(ctx.request.fields);
+      yield next();
+    } catch (err) {
+      if (err.invalid) {
+        ctx.status = 422;
+        ctx.body = err.invalid;
+        return;
+      }
+      throw err;
     }
-    throw err;
-  }
-}).post('/city-filter', async ctx => {
-  ctx.body = await _hubspot2.default.getDates(ctx.request.fields.city, ctx.request.fields.course);
-}).post('/contact-form', async ctx => {
-  const contactFields = Object.keys(ctx.request.fields).reduce((obj, key) => {
-    if (key !== 'query') {
-      return Object.assign(obj, {
-        [key]: ctx.request.fields[key]
-      });
+  });
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})()).post('/city-filter', (() => {
+  var _ref2 = _asyncToGenerator(function* (ctx) {
+    ctx.body = yield _hubspot2.default.getDates(ctx.request.fields.city, ctx.request.fields.course);
+  });
+
+  return function (_x3) {
+    return _ref2.apply(this, arguments);
+  };
+})()).post('/contact-form', (() => {
+  var _ref3 = _asyncToGenerator(function* (ctx) {
+    const contactFields = Object.keys(ctx.request.fields).reduce(function (obj, key) {
+      if (key !== 'query') {
+        return Object.assign(obj, {
+          [key]: ctx.request.fields[key]
+        });
+      }
+      return obj;
+    }, {});
+    const contact = yield _hubspot2.default.addContact(contactFields);
+    if (contact.isNew) {
+      yield _mailgun2.default.sendNewContact(contact.vid, contactFields);
     }
-    return obj;
-  }, {});
-  const contact = await _hubspot2.default.addContact(contactFields);
-  if (contact.isNew) {
-    await _mailgun2.default.sendNewContact(contact.vid, contactFields);
-  }
-  await _mailgun2.default.sendQuery(ctx.request.fields);
-  ctx.redirect('/thank-you');
-}).post('/:course/brochure', async ctx => {
-  const contact = await _hubspot2.default.addContact(ctx.request.fields);
-  if (contact.isNew) {
-    await _mailgun2.default.sendNewContact(contact.vid, ctx.request.fields);
-  }
-  ctx.redirect(`/pdf/${ ctx.params.course }.pdf`);
-}).post('/newsletter', async ctx => {
-  await _mailgun2.default.addToList(ctx.request.fields.email);
-  ctx.status = 200;
-  ctx.body = { completed: true };
-});
+    yield _mailgun2.default.sendQuery(ctx.request.fields);
+    ctx.redirect('/thank-you');
+  });
+
+  return function (_x4) {
+    return _ref3.apply(this, arguments);
+  };
+})()).post('/:course/brochure', (() => {
+  var _ref4 = _asyncToGenerator(function* (ctx) {
+    const contact = yield _hubspot2.default.addContact(ctx.request.fields);
+    if (contact.isNew) {
+      yield _mailgun2.default.sendNewContact(contact.vid, ctx.request.fields);
+    }
+    ctx.redirect(`/pdf/${ctx.params.course}.pdf`);
+  });
+
+  return function (_x5) {
+    return _ref4.apply(this, arguments);
+  };
+})()).post('/newsletter', (() => {
+  var _ref5 = _asyncToGenerator(function* (ctx) {
+    yield _mailgun2.default.addToList(ctx.request.fields.email);
+    ctx.status = 200;
+    ctx.body = { completed: true };
+  });
+
+  return function (_x6) {
+    return _ref5.apply(this, arguments);
+  };
+})());
 
 exports.default = formRouter;
 
-/***/ },
+/***/ }),
 /* 18 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("directus-sdk-javascript");
 
-/***/ },
+/***/ }),
 /* 19 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("fs");
 
-/***/ },
+/***/ }),
 /* 20 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("hubspot");
 
-/***/ },
+/***/ }),
 /* 21 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("mailgun-js");
 
-/***/ },
+/***/ }),
 /* 22 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("request");
 
-/***/ },
+/***/ }),
 /* 23 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("stripe");
 
-/***/ },
+/***/ }),
 /* 24 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 module.exports = require("validator");
 
-/***/ }
+/***/ })
 /******/ ]);

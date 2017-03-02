@@ -7,13 +7,13 @@ const proxyOptions = url.parse('http://londonschoolofdigitalmarketing.com/storag
 proxyOptions.route = '/storage';
 
 module.exports = {
-  files: ['res/css/*.css', 'res/js/*.js', 'src/views'],
+  files: ['dist/*', 'src/views/**/*'],
   proxy: {
     target: 'localhost:3000',
     middleware: [proxy(proxyOptions)],
   },
   port: 3001,
-  serveStatic: ['res'],
+  serveStatic: ['dist', 'res'],
   ghostMode: {
     clicks: true,
     scroll: true,

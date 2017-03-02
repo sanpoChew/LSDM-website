@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for modules/forms.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">modules/</a> forms.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.08% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>3/59</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">8.33% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.17% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>3/58</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export function test(t) {
+  return t;
+}
+&nbsp;
+function updateFormStatus(statusDiv, status, fields = []) <span class="fstat-no" title="function not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >  while (statusDiv.lastChild) {</span>
+<span class="cstat-no" title="statement not covered" >    statusDiv.removeChild(statusDiv.lastChild);</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (fields.length) {</span>
+<span class="cstat-no" title="statement not covered" >    fields.forEach((field) =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+      const messageDiv = <span class="cstat-no" title="statement not covered" >document.createElement('div');</span>
+      const messageString = <span class="cstat-no" title="statement not covered" >document.createTextNode(`There was a problem</span>
+        with your ${field}, please try again.`);
+<span class="cstat-no" title="statement not covered" >      statusDiv.appendChild(messageDiv.appendChild(messageString));</span>
+    });
+<span class="cstat-no" title="statement not covered" >    return;</span>
+  }
+  const messageString = <span class="cstat-no" title="statement not covered" >document.createTextNode(status);</span>
+<span class="cstat-no" title="statement not covered" >  statusDiv.appendChild(messageString);</span>
+}
+&nbsp;
+function createButton(dealID) <span class="fstat-no" title="function not covered" >{</span>
+  const block = <span class="cstat-no" title="statement not covered" >document.createElement('div');</span>
+<span class="cstat-no" title="statement not covered" >  block.setAttribute('class', 'action-block');</span>
+  const link = <span class="cstat-no" title="statement not covered" >document.createElement('a');</span>
+<span class="cstat-no" title="statement not covered" >  link.setAttribute('class', 'action-link');</span>
+<span class="cstat-no" title="statement not covered" >  link.setAttribute('target', '_blank');</span>
+<span class="cstat-no" title="statement not covered" >  link.setAttribute('href', `${window.location.pathname}/enrol/${dealID}`);</span>
+<span class="cstat-no" title="statement not covered" >  link.textContent = 'Enrol Now';</span>
+<span class="cstat-no" title="statement not covered" >  block.appendChild(link);</span>
+<span class="cstat-no" title="statement not covered" >  return block;</span>
+}
+&nbsp;
+&nbsp;
+const dateSelectForm = {
+  reset(dateTable) {
+    const dateTableBody = <span class="cstat-no" title="statement not covered" >dateTable.querySelector('tbody');</span>
+<span class="cstat-no" title="statement not covered" >    dateTable.removeAttribute('style');</span>
+<span class="cstat-no" title="statement not covered" >    while (dateTableBody.firstChild) {</span>
+<span class="cstat-no" title="statement not covered" >      dateTableBody.removeChild(dateTableBody.firstChild);</span>
+    }
+  },
+  loadDates(dates, dateTable, statusBox) {
+<span class="cstat-no" title="statement not covered" >    if (!dates.length) {</span>
+<span class="cstat-no" title="statement not covered" >      updateFormStatus(statusBox, 'Sorry, no courses are available.');</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    updateFormStatus(statusBox, '');</span>
+    const dateTableBody = <span class="cstat-no" title="statement not covered" >dateTable.querySelector('tbody');</span>
+<span class="cstat-no" title="statement not covered" >    dateTable.style.display = 'table';</span>
+<span class="cstat-no" title="statement not covered" >    dates.forEach((course, i) =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+      const row = <span class="cstat-no" title="statement not covered" >dateTableBody.insertRow(i);</span>
+<span class="cstat-no" title="statement not covered" >      row.insertCell().textContent = course.location;</span>
+<span class="cstat-no" title="statement not covered" >      row.insertCell().textContent = course.date;</span>
+<span class="cstat-no" title="statement not covered" >      row.insertCell().textContent = course.price;</span>
+<span class="cstat-no" title="statement not covered" >      if (!course.full) {</span>
+<span class="cstat-no" title="statement not covered" >        row.insertCell().appendChild(createButton(course.id));</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      row.insertCell().textContent = 'Full';</span>
+<span class="cstat-no" title="statement not covered" >      updateFormStatus(statusBox, 'If you want to apply for a full course, please call us at 0203 3732 0578');</span>
+    });
+  },
+};
+&nbsp;
+function handlePostResult(form, statusBox, res) <span class="fstat-no" title="function not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >  switch (form.id) {</span>
+    case 'city-filter': {
+      const dateTable = <span class="cstat-no" title="statement not covered" >document.querySelector('.course-payment-date-select &gt; table');</span>
+<span class="cstat-no" title="statement not covered" >      dateSelectForm.reset(dateTable);</span>
+<span class="cstat-no" title="statement not covered" >      dateSelectForm.loadDates(res, dateTable, statusBox);</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+    }
+    default:
+<span class="cstat-no" title="statement not covered" >      updateFormStatus(statusBox, 'Thank You!');</span>
+  }
+}
+&nbsp;
+function addPostEvent(form) <span class="fstat-no" title="function not covered" >{</span>
+  const eventType = <span class="cstat-no" title="statement not covered" >form.id.endsWith('filter') ? 'change' : 'submit';</span>
+<span class="cstat-no" title="statement not covered" >  form.addEventListener(eventType, (e) =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >    e.preventDefault();</span>
+    const statusBox = <span class="cstat-no" title="statement not covered" >form.querySelector('.formStatus');</span>
+<span class="cstat-no" title="statement not covered" >    updateFormStatus(statusBox, 'Loading...');</span>
+<span class="cstat-no" title="statement not covered" >    fetch(`/forms/${form.id}`, {</span>
+      method: 'post',
+      body: new FormData(form),
+    }).then(res =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >res.json())</span></span>.then(j =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >handlePostResult(form, statusBox, j))</span></span>;
+  });
+}
+&nbsp;
+const connectForms = (forms) =&gt; <span class="fstat-no" title="function not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >  [].forEach.call(forms, (f) =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >    if (f.getAttribute('method') !== 'post') {</span>
+<span class="cstat-no" title="statement not covered" >      addPostEvent(f);</span>
+    }
+  });
+};
+&nbsp;
+export default connectForms;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Jan 29 2017 01:13:40 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

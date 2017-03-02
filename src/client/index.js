@@ -6,6 +6,7 @@ import svg4everybody from 'svg4everybody';
 import Swiper from 'swiper/dist/js/swiper.min';
 import buttonsToHeader from './modules/buttonsToHeader';
 import formListener from './modules/forms';
+import './scss/base.scss';
 
 window.cookieconsent_options = {
   message: 'We use cookies to ensure you get the best experience on our website',

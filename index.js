@@ -403,11 +403,11 @@ var _directus = __webpack_require__(2);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const assetPaths = () => {
-  const manifest = _fs2.default.readFileSync('./res/webpack-manifest.json');
+  const manifest = _fs2.default.readFileSync('./dist/manifest.json');
   const parsed = JSON.parse(manifest);
   return Object.assign(parsed, {
-    'style.css': _path2.default.basename(parsed['style.css']),
-    'base.js': _path2.default.basename(parsed['base.js'])
+    'style.css': _path2.default.basename(parsed['bundle.css']),
+    'base.js': _path2.default.basename(parsed['bundle.js'])
   });
 };
 

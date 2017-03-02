@@ -9,11 +9,11 @@ import log from '../index';
 import { loadBaseData } from '../lib/directus';
 
 const assetPaths = () => {
-  const manifest = fs.readFileSync('./res/webpack-manifest.json');
+  const manifest = fs.readFileSync('./dist/manifest.json');
   const parsed = JSON.parse(manifest);
   return Object.assign(parsed, {
-    'style.css': path.basename(parsed['style.css']),
-    'base.js': path.basename(parsed['base.js']),
+    'style.css': path.basename(parsed['bundle.css']),
+    'base.js': path.basename(parsed['bundle.js']),
   });
 };
 

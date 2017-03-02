@@ -13,7 +13,7 @@ module.exports = {
     middleware: [proxy(proxyOptions)],
   },
   port: 3001,
-  serveStatic: ['res'],
+  serveStatic: ['dist', 'res'],
   ghostMode: {
     clicks: true,
     scroll: true,

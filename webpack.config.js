@@ -50,7 +50,7 @@ const bundleConfig = {
       {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract([
-          'css-loader', 'sass-loader?includePaths=./node_modules',
+          'css-loader', 'sass-loader',
         ]),
       },
     ],

@@ -556,18 +556,6 @@
         margin-left: 1rem;
       }
     }
-
-    &-logos {
-      display: none;
-      align-items: center;
-      @include media-breakpoint-up(md) { display: flex; }
-
-      & > img {
-        margin-left: 0.5rem;
-        max-height: 2.5rem;
-        width: auto;
-      }
-    }
   }
 }
 
@@ -782,10 +770,6 @@
       & > * {
         margin: 2rem 0;
       }
-    }
-
-    &-video {
-      @extend .module-splash-video;
     }
 
     &-action {

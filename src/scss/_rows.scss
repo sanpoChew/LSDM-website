@@ -129,40 +129,15 @@
   background-color: $light-blue;
   color: $primary-text-light;
 
-  &-text, &-video {
-    @extend .col-xs-12;
-
-    & > * {
-      margin-top: 2rem;
-    }
-  }
-
   &-text {
-    @extend .col-md-7, .pull-md-5;
+    @extend .col-xs-7;
 
     & .action-block {
       justify-content: flex-start;
     }
-  }
 
-  &-video {
-    @extend .col-md-5, .push-md-7;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-
-    & img {
-      width: 25%;
-      cursor: pointer;
-    }
-
-    & iframe {
-      border: 0;
-      display: none;
-      margin-left: auto;
-      margin-right: auto;
-      height: 250px;
-      width: 450px;
+    & > * {
+      margin-top: 2rem;
     }
   }
 }

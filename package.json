@@ -10,6 +10,7 @@
     "prod": "http://localhost:8000/api"
   },
   "scripts": {
+    "test": "eslint src",
     "build:js": "webpack",
     "watch:js": "webpack -w",
     "browser-sync:start": "browser-sync start --config browsersync.config.js",

@@ -43,12 +43,12 @@
 }
 
 .enrol-title {
-  @extend .col-xs-12, .col-sm-6;
+  @extend .col-12, .col-sm-6;
   margin-bottom: 2rem;
 }
 
 .enrol-form {
-  @extend .col-xs-12, .col-sm-6;
+  @extend .col-12, .col-sm-6;
 
   & form {
     background-color: $primary-white;
@@ -88,7 +88,7 @@
 }
 
 .modules {
-  @extend .col-xs-12;
+  @extend .col-12;
   padding: 0;
 
   & .swiper-wrapper {
@@ -258,7 +258,7 @@
     padding: 15px 15px 0 15px;
 
     &-logo {
-      @extend .col-xs-9, .col-md-4;
+      @extend .col-9, .col-md-4;
 
       &-text {
         display: inline-block;
@@ -269,7 +269,7 @@
     }
 
     &-mobile {
-      @extend .col-xs-3;
+      @extend .col-3;
       text-align: right;
       @include media-breakpoint-up(md) { display: none; }
 
@@ -375,7 +375,7 @@
     }
 
     &-course {
-      @extend .col-xs-5, .col-md-4, .push-md-4;
+      @extend .col-5, .col-md-4, .push-md-4;
       display: none;
       text-align: right;
       @include media-breakpoint-up(md) { display: block; }
@@ -389,7 +389,7 @@
     }
 
     &-contact {
-      @extend .col-xs-12, .col-md-4, .pull-md-4;
+      @extend .col-12, .col-md-4, .pull-md-4;
       font-size: 110%;
       font-weight: bold;
       text-align: center;
@@ -539,7 +539,7 @@
     color: $primary-green;
 
     & > div {
-      @extend .col-xs-12;
+      @extend .col-12;
       display: flex;
       justify-content: space-between;
     }
@@ -576,7 +576,7 @@
     }
 
     &-info {
-      @extend .col-xs-12, .col-sm-6, .col-md-8;
+      @extend .col-12, .col-sm-6, .col-md-8;
       align-items: center;
       display: flex;
 
@@ -618,7 +618,7 @@
     }
 
     &-form {
-      @extend .col-xs-12, .col-sm-6, .col-md-4;
+      @extend .col-12, .col-sm-6, .col-md-4;
       margin-top: 1rem;
       @include media-breakpoint-up(sm) {
         display: flex;
@@ -675,7 +675,7 @@
     color: $primary-text-light;
 
     &-text, &-image {
-      @extend .col-xs-12, .col-md-6;
+      @extend .col-12, .col-md-6;
       display: flex;
       justify-content: center;
 
@@ -717,7 +717,7 @@
     color: $primary-text-light;
 
     &-student {
-      @extend .col-xs-6, .col-sm-4;
+      @extend .col-6, .col-sm-4;
 
       & > div {
         box-shadow: 6px 6px 0px 0px #758189;
@@ -738,7 +738,7 @@
     }
 
     & .action-block {
-      @extend .col-xs-6, .col-sm-12;
+      @extend .col-6, .col-sm-12;
     }
   }
 }
@@ -791,7 +791,7 @@
     }
 
     &-image, &-text {
-      @extend .col-xs-12, .col-md-6, .offset-md-0;
+      @extend .col-12, .col-md-6, .offset-md-0;
     }
 
     &-image {
@@ -827,11 +827,11 @@
     @extend .default-row;
 
     & .row-title {
-      @extend .col-xs-12;
+      @extend .col-12;
     }
 
     & .content-block {
-      @extend .col-xs-12, .col-sm-6;
+      @extend .col-12, .col-sm-6;
       margin: 2rem 0;
     }
   }
@@ -853,7 +853,7 @@
     background-color: $primary-white;
 
     & .content-block {
-      @extend .col-xs-12;
+      @extend .col-12;
       margin: 3rem 0;
     }
   }
@@ -877,7 +877,7 @@
     padding: 8rem 0;
 
     &-text {
-      @extend .col-xs-12, .col-md-4;
+      @extend .col-12, .col-md-4;
     }
 
     &-action {
@@ -896,7 +896,7 @@
     padding: 2rem 0;
 
     &-image {
-      @extend .col-xs-4;
+      @extend .col-4;
       align-items: center;
       display: flex;
       justify-content: center;
@@ -908,7 +908,7 @@
     }
 
     &-text {
-      @extend .col-xs-4;
+      @extend .col-4;
       margin-top: 1rem;
       text-align: center;
 
@@ -942,7 +942,7 @@
   @extend .row;
 
   &-header {
-    @extend .col-xs-12;
+    @extend .col-12;
     border-bottom: 2px solid black;
     display: flex;
     align-items: center;
@@ -951,7 +951,7 @@
     width: 100%;
 
     & .header-main-logo {
-      @extend .col-xs-9;
+      @extend .col-9;
 
       & span {
         display: none;
@@ -969,7 +969,7 @@
   }
 
   &-body {
-    @extend .col-xs-12;
+    @extend .col-12;
     align-items: center;
     background-color: $primary-blue;
     display: flex;
@@ -1005,7 +1005,7 @@
   }
 
   &-card {
-    @extend .col-xs-10;
+    @extend .col-10;
     background-color: $primary-white;
     box-shadow: 6px 6px 0px 0px #758189;
     height: 80%;
@@ -1019,7 +1019,7 @@
       justify-content: space-between;
 
       &-content {
-        @extend .col-xs-12;
+        @extend .col-12;
       }
     }
 
@@ -1030,7 +1030,7 @@
       align-items: center;
 
       & > h3 {
-        @extend .col-xs-12;
+        @extend .col-12;
       }
     }
 
@@ -1041,7 +1041,7 @@
       flex-wrap: wrap;
 
       & > .action-block {
-        @extend .col-xs-6;
+        @extend .col-6;
         min-height: 25%;
 
         & > .action-link {
@@ -1074,7 +1074,7 @@
       @extend .row;
 
       & > div {
-        @extend .col-xs-12;
+        @extend .col-12;
         display: flex;
         justify-content: space-between;
       }
@@ -1126,7 +1126,7 @@
     }
 
     &-col {
-      @extend .col-xs-12, .col-md-6, .offset-md-3;
+      @extend .col-12, .col-md-6, .offset-md-3;
     }
   }
 
@@ -1135,7 +1135,7 @@
     background-color: $primary-white;
 
     &-title, &-input, &-textarea, &-error, &-buttons {
-      @extend .col-xs-12;
+      @extend .col-12;
     }
 
     &-input, &-textarea, &-buttons {
@@ -1202,7 +1202,7 @@
     }
 
     &-text {
-      @extend .col-xs-12, .col-md-6;
+      @extend .col-12, .col-md-6;
     }
 
     &-action {
@@ -1216,7 +1216,7 @@
     text-align: center;
 
     &-title, &-diploma {
-      @extend .col-xs-12, .col-md-10, .offset-md-1;
+      @extend .col-12, .col-md-10, .offset-md-1;
 
       &, & > * {
         margin-bottom: 1rem;
@@ -1232,7 +1232,7 @@
       }
 
       &-image {
-        @extend .col-xs-12, .col-sm-3;
+        @extend .col-12, .col-sm-3;
 
         & img {
           box-shadow: 0px 1px 2px -1px black;
@@ -1242,7 +1242,7 @@
       }
 
       &-text {
-        @extend .col-xs-12, .col-sm-9;
+        @extend .col-12, .col-sm-9;
         text-align: left;
 
         & > * {
@@ -1277,7 +1277,7 @@
     background-color: $primary-white;
 
     &-student-block {
-      @extend .col-xs-12, .col-sm-6, .col-md-4, .student-block;
+      @extend .col-12, .col-sm-6, .col-md-4, .student-block;
     }
   }
 }
@@ -1314,14 +1314,14 @@
     @extend .default-row;
 
     &-column {
-      @extend .col-xs-12, .col-md-10, .offset-md-1, .col-xl-6, .offset-xl-3;
+      @extend .col-12, .col-md-10, .offset-md-1, .col-xl-6, .offset-xl-3;
     }
   }
 }
 
 .about-page {
   & .fold .fold-block {
-    @extend .col-xs-4;
+    @extend .col-4;
 
     & h1 {
       font-size: 15vw;
@@ -1378,7 +1378,7 @@
 }
 
 .qf-TextBlock {
-  @extend .col-xs-12, .col-lg-8, .offset-lg-2, .col-xl-6, .offset-xl-3;
+  @extend .col-12, .col-lg-8, .offset-lg-2, .col-xl-6, .offset-xl-3;
   margin-bottom: 60px;
 
   & h2 {

@@ -12,13 +12,12 @@
   "scripts": {
     "test": "eslint src",
     "postinstall": "webpack",
-    "watch:js": "webpack -w",
     "browser-sync:start": "browser-sync start --config browsersync.config.js",
-    "start:dev": "npm run watch:js & nodemon -x 'node --harmony' ./index.js | bunyan & npm run browser-sync:start",
+    "start:dev": "webpack -w & nodemon -x 'node --harmony' ./index.js | bunyan & npm run browser-sync:start",
     "start": "NODE_ENV=production node --harmony index.js | bunyan"
   },
   "dependencies": {
-    "bootstrap": "next",
+    "bootstrap": "4.0.0-alpha.6",
     "bunyan": "^1.8.5",
     "co": "^4.6.0",
     "cookieconsent2": "^1.0.10-2",

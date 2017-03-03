@@ -85,7 +85,7 @@
 }
 
 .default-column {
-  @extend .col-xs-12, .col-lg-10, .offset-lg-1, .col-xl-8, .offset-xl-2;
+  @extend .col-12, .col-lg-10, .offset-lg-1, .col-xl-8, .offset-xl-2;
 
   & > .content-row {
     @extend .row;
@@ -99,7 +99,7 @@
   color: $primary-text-dark;
 
   &-text {
-    @extend .col-xs-12, .col-md-6, .pull-md-6;
+    @extend .col-12, .col-md-6, .pull-md-6;
     padding-top: 2rem;
 
     & > * {
@@ -108,7 +108,7 @@
   }
 
   &-image {
-    @extend .col-xs-12, .col-sm-8, .offset-sm-2, .col-md-6, .offset-md-0, .push-md-6;
+    @extend .col-12, .col-sm-8, .offset-sm-2, .col-md-6, .offset-md-0, .push-md-6;
   }
 
   &-action {
@@ -152,7 +152,7 @@
   }
 
   &-block {
-    @extend .col-xs-12, .col-md-6;
+    @extend .col-12, .col-md-6;
     display: flex;
     margin-top: 4rem;
     @include media-breakpoint-up(md) { margin: 4rem 0; }

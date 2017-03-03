@@ -1,11 +1,16 @@
 {
+    "env": {
+      "node": true
+    },
     "extends": "airbnb-base",
     "plugins": [
         "import"
     ],
     "rules": {
       "no-param-reassign": "off",
-      "no-unused-expressions": ["error", { "allowTernary": true }],
-      "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/gulpfile.js"], "optionalDependencies": false, "peerDependencies": false}]
+      "no-unused-expressions": ["error", { "allowTernary": true }]
+    },
+    "settings": {
+      "import/resolver": "webpack"
     }
 }

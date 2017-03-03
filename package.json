@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "eslint src",
-    "build:js": "webpack",
+    "postinstall": "webpack",
     "watch:js": "webpack -w",
     "browser-sync:start": "browser-sync start --config browsersync.config.js",
     "start:dev": "npm run watch:js & nodemon -x 'node --harmony' ./index.js | bunyan & npm run browser-sync:start",

@@ -19,10 +19,6 @@ class diagnosticTest {
       });
   }
 
-  handleButtonClick() {
-    
-  }
-
   init() {
     this.loadQuestion();
   }

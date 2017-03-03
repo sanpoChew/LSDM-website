@@ -127,9 +127,7 @@ _koaHbs2.default.registerHelper('cut', text => {
   return new _koaHbs2.default.SafeString(text.substring(0, index));
 });
 
-_koaHbs2.default.registerHelper('encodeMyString', i => {
-  return new _koaHbs2.default.SafeString(i.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"'));
-});
+_koaHbs2.default.registerHelper('encodeMyString', i => new _koaHbs2.default.SafeString(i.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')));
 
 new _koa2.default().use((0, _koaConvert2.default)((0, _koaBetterBody2.default)())).use((0, _koaConvert2.default)(_koaHbs2.default.middleware({
   viewPath: _path2.default.resolve('./src/views/pages'),

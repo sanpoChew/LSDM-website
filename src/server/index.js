@@ -16,9 +16,9 @@ hbs.registerHelper('cut', (text) => {
   return new hbs.SafeString(text.substring(0, index));
 });
 
-hbs.registerHelper('encodeMyString', (i) => {
-  return new hbs.SafeString(i.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"'));
-});
+hbs.registerHelper('encodeMyString', i =>
+  new hbs.SafeString(i.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"'))
+);
 
 new Koa()
   .use(convert(body()))

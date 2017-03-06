@@ -1226,6 +1226,7 @@
     &-diploma {
 
       & > div {
+        @extend .row;
         background-color: white;
         overflow: auto;
         padding: 1rem;

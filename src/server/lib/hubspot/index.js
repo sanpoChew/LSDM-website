@@ -79,7 +79,6 @@ async function getDates(location, course) {
             price: `£${prop.amount.value}.00`,
             full: (prop.num_associated_contacts.value >= prop.course_size.value),
           });
-          return;
         }
       });
       resolve(courses);

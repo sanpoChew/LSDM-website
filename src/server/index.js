@@ -17,7 +17,7 @@ hbs.registerHelper('cut', (text) => {
 });
 
 hbs.registerHelper('encodeMyString', i =>
-  new hbs.SafeString(i.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"'))
+  new hbs.SafeString(i.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')),
 );
 
 new Koa()

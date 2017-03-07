@@ -6,7 +6,7 @@ import hubspot from '../lib/hubspot';
 
 function removeMeta(data, fields = []) {
   return data.map(d =>
-    Object.assign(d, ...fields.map(f => ({ [f]: d[f].data[0][f] })))
+    Object.assign(d, ...fields.map(f => ({ [f]: d[f].data[0][f] }))),
   );
 }
 
@@ -48,7 +48,7 @@ const courseRouter = new Router()
         page.sub_courses = parsedSubCourses.map(course =>
           Object.assign(course, {
             course_content: course.course_content.split('\r\n'),
-          })
+          }),
         );
       }
       await ctx.render(templateName, Object.assign(ctx.state, {

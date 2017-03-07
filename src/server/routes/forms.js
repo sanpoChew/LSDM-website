@@ -12,9 +12,9 @@ function validateFields(fields) {
           if (!validator.isEmail(field[1])) {
             invalid.push(field[0]);
           }
-          return;
+          break;
         default:
-          return;
+          break;
       }
     });
     invalid.length > 0 ? reject({ invalid }) : resolve();

@@ -6,5 +6,6 @@ addons:
 after_success:
   - eval "$(ssh-agent -s)"
   - ssh-add $SSHKEY
+  - ssh-add -l
   - git remote add deploy joe@londonschoolofdigitalmarketing.com:/var/www/test.git
   - git push deploy

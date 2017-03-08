@@ -1,3 +1,8 @@
 language: node_js
 node_js:
   - "7.6.0"
+after_success:
+  - eval "$(ssh-agent -s)"
+  - ssh-add $SSHKEY
+  - git remote add deploy joe@londonschoolofdigitalmarketing.com:/var/www/test.git
+  - git push deploy

@@ -1,11 +1,14 @@
 language: node_js
 node_js:
-  - "7.6.0"
+- 7.6.0
 addons:
   ssh_known_hosts: londonschoolofdigitalmarketing.com
 after_success:
-  - eval "$(ssh-agent -s)"
-  - echo "$SSHKEY"
-  - ssh-add -l
-  - git remote add deploy joe@londonschoolofdigitalmarketing.com:/var/www/test.git
-  - git push deploy
+- eval "$(ssh-agent -s)"
+- chmod 600 key.enc
+- ssh-add key.enc
+- git remote add deploy joe@londonschoolofdigitalmarketing.com:/var/www/londonschoolofdigitalmarketing.com
+- git push deploy
+dd:
+- openssl aes-256-cbc -K $encrypted_2b128fd36d84_key -iv $encrypted_2b128fd36d84_iv
+  -in key.enc -out key -d

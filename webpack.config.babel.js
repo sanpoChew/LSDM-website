@@ -1,12 +1,12 @@
-import { resolve } from 'path';
+import { join } from 'path';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import ManifestPlugin from 'webpack-manifest-plugin';
 import Webpack from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 
-const config = () => ([
-  {
+const config = (env = {}) => {
+  const clientBundle = {
     entry: './src/server/index.js',
     target: 'node',
     externals: [nodeExternals()],
@@ -28,8 +28,9 @@ const config = () => ([
     output: {
       filename: 'index.js',
     },
-  },
-  {
+  };
+
+  const serverBundle = {
     entry: {
       bundle: ['babel-polyfill', 'whatwg-fetch', './src/client/index.js'],
     },
@@ -41,7 +42,13 @@ const config = () => ([
           loader: 'babel-loader',
           query: {
             presets: [
-              ['env', { browsers: '> 1% in GB', useBuiltIns: true }],
+              ['env', {
+                targets: {
+                  browsers: '> 1% in GB',
+                  uglify: true,
+                },
+                useBuiltIns: true,
+              }],
             ],
           },
         },
@@ -58,15 +65,30 @@ const config = () => ([
     },
     plugins: [
       new CleanWebpackPlugin(['dist']),
-      new ManifestPlugin(),
+      new ManifestPlugin({
+        fileName: './dist/manifest.json',
+        publicPath: env.dev ? 'http://localhost:8080/' : '/',
+        writeToFileEmit: true,
+      }),
       new ExtractTextPlugin('[name].[contenthash].css'),
       new Webpack.optimize.UglifyJsPlugin(),
     ],
     output: {
-      path: resolve('./dist'),
       filename: '[name].[chunkhash].js',
     },
-  },
-]);
+  };
+
+  if (env.dev) {
+    serverBundle.devServer = {
+      contentBase: join(__dirname, 'res'),
+      proxy: {
+        '!/img/**': 'http://localhost:3000',
+      },
+    };
+    serverBundle.output.publicPath = 'http://localhost:8080/';
+  }
+
+  return [serverBundle, clientBundle];
+};
 
 export default config;

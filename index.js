@@ -296,7 +296,6 @@ async function getDates(location, course) {
             price: `£${prop.amount.value}.00`,
             full: prop.num_associated_contacts.value >= prop.course_size.value
           });
-          return;
         }
       });
       resolve(courses);
@@ -859,9 +858,9 @@ function validateFields(fields) {
           if (!_validator2.default.isEmail(field[1])) {
             invalid.push(field[0]);
           }
-          return;
+          break;
         default:
-          return;
+          break;
       }
     });
     invalid.length > 0 ? reject({ invalid }) : resolve();

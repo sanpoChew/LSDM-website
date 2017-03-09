@@ -8,21 +8,14 @@ import formsRouter from './forms';
 import log from '../index';
 import { loadBaseData } from '../lib/directus';
 
-const assetPaths = () => {
-  const manifest = fs.readFileSync('./dist/manifest.json');
-  const parsed = JSON.parse(manifest);
-  return Object.assign(parsed, {
-    'style.css': path.basename(parsed['bundle.css']),
-    'base.js': path.basename(parsed['bundle.js']),
-  });
-};
+const assetManifest = JSON.parse(fs.readFileSync('./dist/manifest.json'));
 
 const index = new Router()
   .get(/^\/(.*)(?:\/|$)/, async (ctx, next) => {
     try {
       const baseData = await loadBaseData();
       ctx.state = baseData;
-      ctx.state.assetPaths = assetPaths();
+      ctx.state.assetPaths = assetManifest;
       await next();
     } catch (err) {
       log.error({ err });

@@ -43,7 +43,7 @@ const clientConfig = (env = 'dev') => (
         publicPath: env === 'dev' ? 'http://localhost:8080/' : '/',
         writeToFileEmit: true,
       }),
-      new ExtractTextPlugin(env === 'dev' ? 'bundle.[contenthash].css' : './dist/bundle.[contenthash].css'),
+      new ExtractTextPlugin(env === 'dev' ? 'bundle.[contenthash].css' : 'dist/bundle.[contenthash].css'),
     ],
     devServer: {
       contentBase: join(__dirname, '../res'),
@@ -53,7 +53,7 @@ const clientConfig = (env = 'dev') => (
     },
     output: {
       publicPath: env === 'dev' ? 'http://localhost:8080/' : '',
-      filename: env === 'dev' ? 'bundle.[chunkhash].js' : './dist/bundle.[chunkhash].js',
+      filename: env === 'dev' ? 'bundle.[chunkhash].js' : 'dist/bundle.[chunkhash].js',
     },
   }
 );

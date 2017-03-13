@@ -1,5 +1,4 @@
 import fs from 'fs';
-import path from 'path';
 import Router from 'koa-router';
 import blogRouter from './blog';
 import coursesRouter from './courses';

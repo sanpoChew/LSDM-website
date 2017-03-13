@@ -15,7 +15,14 @@
           }
         }
       ]
-    ]
+    ],
+    "env": {
+      "production": {
+        "presets": [
+          "babili"
+        ]
+      }
+    }
   },
   "directus": {
     "dev": "https://londonschoolofdigitalmarketing.com/directus/api",
@@ -23,8 +30,11 @@
   },
   "scripts": {
     "test": "eslint src",
-    "start:dev": "webpack-dev-server --env.dev & nodemon -x 'node --harmony' ./index.js | bunyan",
-    "start": "NODE_ENV=production node --harmony index.js | bunyan"
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "BABEL_ENV=production webpack --config ./webpack/client.babel.js -p --env=prod",
+    "build:server": "webpack --config ./webpack/server.babel.js",
+    "start:dev": "webpack-dev-server --config ./webpack/client.babel.js & (npm run build:server ; nodemon index.js | bunyan)",
+    "start": "NODE_ENV=production node index.js | bunyan"
   },
   "dependencies": {
     "babel-register": "^6.23.0",
@@ -54,10 +64,11 @@
     "babel-loader": "^6.4.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
     "babel-polyfill": "^6.20.0",
+    "babel-preset-babili": "^0.0.12",
     "babel-preset-env": "^1.2.1",
     "browser-sync": "^2.17.5",
     "clean-webpack-plugin": "^0.1.15",
-    "css-loader": "^0.26.4",
+    "css-loader": "^0.27.3",
     "eslint": "^3.17.1",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-import-resolver-webpack": "^0.8.1",

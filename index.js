@@ -1,41 +1,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// identity function for calling harmony imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
-
+/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -46,7 +46,7 @@
 /******/ 			});
 /******/ 		}
 /******/ 	};
-
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -55,13 +55,13 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-
+/******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
@@ -83,37 +83,37 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _bunyan = __webpack_require__(6);
+var _bunyan = __webpack_require__(5);
 
 var _bunyan2 = _interopRequireDefault(_bunyan);
 
-var _co = __webpack_require__(7);
+var _co = __webpack_require__(6);
 
 var _co2 = _interopRequireDefault(_co);
 
-__webpack_require__(8);
+__webpack_require__(7);
 
-var _koa = __webpack_require__(9);
+var _koa = __webpack_require__(8);
 
 var _koa2 = _interopRequireDefault(_koa);
 
-var _koaBetterBody = __webpack_require__(10);
+var _koaBetterBody = __webpack_require__(9);
 
 var _koaBetterBody2 = _interopRequireDefault(_koaBetterBody);
 
-var _koaConvert = __webpack_require__(11);
+var _koaConvert = __webpack_require__(10);
 
 var _koaConvert2 = _interopRequireDefault(_koaConvert);
 
-var _koaHbs = __webpack_require__(12);
+var _koaHbs = __webpack_require__(11);
 
 var _koaHbs2 = _interopRequireDefault(_koaHbs);
 
-var _path = __webpack_require__(3);
+var _path = __webpack_require__(12);
 
 var _path2 = _interopRequireDefault(_path);
 
-var _routes = __webpack_require__(5);
+var _routes = __webpack_require__(4);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -197,12 +197,6 @@ exports.default = directus;
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
-
-module.exports = require("path");
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -353,7 +347,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -366,10 +360,6 @@ Object.defineProperty(exports, "__esModule", {
 var _fs = __webpack_require__(19);
 
 var _fs2 = _interopRequireDefault(_fs);
-
-var _path = __webpack_require__(3);
-
-var _path2 = _interopRequireDefault(_path);
 
 var _koaRouter = __webpack_require__(0);
 
@@ -399,20 +389,13 @@ var _directus = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const assetPaths = () => {
-  const manifest = _fs2.default.readFileSync('./dist/manifest.json');
-  const parsed = JSON.parse(manifest);
-  return Object.assign(parsed, {
-    'style.css': _path2.default.basename(parsed['bundle.css']),
-    'base.js': _path2.default.basename(parsed['bundle.js'])
-  });
-};
+const assetManifest = JSON.parse(_fs2.default.readFileSync('./dist/manifest.json'));
 
 const index = new _koaRouter2.default().get(/^\/(.*)(?:\/|$)/, async (ctx, next) => {
   try {
     const baseData = await (0, _directus.loadBaseData)();
     ctx.state = baseData;
-    ctx.state.assetPaths = assetPaths();
+    ctx.state.assetPaths = assetManifest;
     await next();
   } catch (err) {
     _index2.default.error({ err });
@@ -440,46 +423,52 @@ const index = new _koaRouter2.default().get(/^\/(.*)(?:\/|$)/, async (ctx, next)
 exports.default = index;
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("bunyan");
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = require("co");
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = require("dotenv/config");
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa");
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-better-body");
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-convert");
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-hbs");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("path");
 
 /***/ }),
 /* 13 */
@@ -682,7 +671,7 @@ var _directus = __webpack_require__(2);
 
 var _directus2 = _interopRequireDefault(_directus);
 
-var _hubspot = __webpack_require__(4);
+var _hubspot = __webpack_require__(3);
 
 var _hubspot2 = _interopRequireDefault(_hubspot);
 
@@ -839,7 +828,7 @@ var _validator = __webpack_require__(24);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _hubspot = __webpack_require__(4);
+var _hubspot = __webpack_require__(3);
 
 var _hubspot2 = _interopRequireDefault(_hubspot);
 

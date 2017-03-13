@@ -16,7 +16,7 @@ const directus = new Client(
 export async function loadBaseData() {
   try {
     const { data: pages } = await directus.getItems('pages', {
-      columns: 'name,link',
+      columns: 'name,link,type',
     });
     return {
       nav: pages.filter(page => page.type === 'Main'),

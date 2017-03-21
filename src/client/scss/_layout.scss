@@ -1398,14 +1398,26 @@
 
 .blog-page-content {
   background-color: $primary-white;
+
+  & .blog-content {
+    @include media-breakpoint-up(md) { padding: 60px 100px; }
+  }
 }
 
 .blog-post-page {
   background-color: white;
+
+  & .blog-content {
+    @extend .col-md-8;
+  }
+
+  & .share-buttons {
+    @extend .col-md-2;
+  }
 }
 
 .blog-posts {
-  @extend .col-lg-8;
+  @extend .col-12, .col-lg-8, .pull-lg-4;
 }
 
 .blog-post {
@@ -1437,8 +1449,8 @@
 }
 
 .blog-sidebar {
-  @extend .col-lg-4;
-  padding: 0 100px;
+  @extend .col-12, .col-lg-4, .push-lg-8;
+  margin-bottom: 2em;
 
   &-topics {
     background-color: white;
@@ -1476,14 +1488,31 @@
 }
 
 .blog-full-post {
-  & img, iframe {
+  @extend .row;
+
+  & img, iframe:not(.twitter-share-button) {
+    align-self: center;
     display: block;
-    margin-bottom: 3rem;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 2rem auto;
   }
 }
 
 .share-buttons {
+  display: flex;
+}
+
+.share-buttons_horizontal {
   margin-top: 30px;
+
+  & > * {
+    margin-right: 1em;
+  }
+}
+
+.share-buttons_vertical {
+  flex-direction: column;
+
+  & > * {
+    margin-bottom: 1em;
+  }
 }

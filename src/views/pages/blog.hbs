@@ -8,6 +8,16 @@
   <div class="blog-page-content default-row">
     <div class="default-column">
       <div class="content-row">
+        <div class="blog-sidebar">
+          <div class="blog-sidebar-topics">
+            <h1>Topics</h1>
+            <ul>
+            {{#each activeTopics}}
+              <li><h3><a href="/blog/{{link}}">{{topic}}</a></h3></li>
+            {{/each}}
+            </ul>
+          </div>
+        </div>
         <div class="blog-posts">
           {{#each blogPosts}}
             <div class="blog-post">
@@ -22,25 +32,10 @@
                 </div>
                 {{{cut text}}}
                 <a class="blog-content-link" href="/blog/{{id}}/{{link}}">Read More</a>
-                <div class="share-buttons">
-                  <div class="fb-share-button"
-                		data-href="https://www.londonschoolofdigitalmarketing.com/blog/{{id}}/{{link}}"
-                		data-layout="button_count">
-                	</div>
-                </div>
+                {{> share-buttons class="share-buttons_horizontal" }}
               </div>
             </div>
           {{/each}}
-        </div>
-        <div class="blog-sidebar">
-          <div class="blog-sidebar-topics">
-            <h1>Topics</h1>
-            <ul>
-            {{#each activeTopics}}
-              <li><h3><a href="/blog/{{link}}">{{topic}}</a></h3></li>
-            {{/each}}
-            </ul>
-          </div>
         </div>
       </div>
     </div>

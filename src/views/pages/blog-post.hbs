@@ -1,3 +1,6 @@
+<head>
+  <meta property="og:image" content="{{blogPost.head_image.data.url}}"/>
+</head>
 <div class="blog-post-page">
   <div class="blog-full-header default-row">
     <div class="default-column">
@@ -13,7 +16,6 @@
     <div class="default-column">
       <div class="blog-full-post">
         <img src="{{blogPost.head_image.data.url}}" alt="">
-        <meta property="og:image" content="{{blogPost.head_image.data.url}}"/>
         <div class="blog-content">
           {{{encodeMyString blogPost.text}}}
         </div>

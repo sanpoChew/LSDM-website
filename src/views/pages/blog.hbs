@@ -12,6 +12,7 @@
           {{#each blogPosts}}
             <div class="blog-post">
               <img src="{{head_image.data.url}}" alt="">
+              <meta property="og:image" content="{{head_image.data.url}}"/>
               <div class="blog-content">
                 <h1 class="blog-title">{{title}}</h1>
                 <div class="blog-tags">

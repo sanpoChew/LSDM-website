@@ -48,6 +48,10 @@ const clientConfig = (env = 'dev') => (
     devServer: {
       contentBase: join(__dirname, '../res'),
       proxy: {
+        '/storage/**': {
+          target: 'https://londonschoolofdigitalmarketing.com',
+          changeOrigin: true,
+        },
         '!/img/**': 'http://localhost:3000',
       },
     },

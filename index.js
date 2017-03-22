@@ -648,8 +648,8 @@ const blogRouter = new _koaRouter2.default().get('/', async ctx => {
     filters: { id: ctx.params.postid }
   });
   const { data: [{
-      first_name,
-      last_name,
+      first_name: firstName,
+      last_name: lastName,
       avatar_file_id: {
         data: {
           thumbnail_url: avatar
@@ -666,7 +666,7 @@ const blogRouter = new _koaRouter2.default().get('/', async ctx => {
     mainImage,
     text,
     author: {
-      name: `${first_name} ${last_name}`,
+      name: `${firstName} ${lastName}`,
       avatar
     }
   }));

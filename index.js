@@ -632,13 +632,43 @@ const blogRouter = new _koaRouter2.default().get('/', async ctx => {
     currentTopic
   }));
 }).get('/:postid/:postslug', async ctx => {
-  const { data: [blogPost] } = await _directus2.default.getItems('blog', {
+  const { data: [{
+      title,
+      text,
+      author: authorID,
+      topics: {
+        data: topics
+      },
+      head_image: {
+        data: {
+          url: mainImage
+        }
+      }
+    }] } = await _directus2.default.getItems('blog', {
     filters: { id: ctx.params.postid }
+  });
+  const { data: [{
+      first_name,
+      last_name,
+      avatar_file_id: {
+        data: {
+          thumbnail_url: avatar
+        }
+      }
+    }] } = await _directus2.default.getItems('directus_users', {
+    filters: { id: authorID }
   });
   await ctx.render('blog-post', Object.assign(ctx.state, {
     layout: 'social',
-    pageTitle: `${blogPost.title} | London School of Digital Marketing`,
-    blogPost
+    pageTitle: `${title} | London School of Digital Marketing`,
+    title,
+    topics,
+    mainImage,
+    text,
+    author: {
+      name: `${first_name} ${last_name}`,
+      avatar
+    }
   }));
 });
 

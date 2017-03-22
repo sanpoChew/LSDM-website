@@ -30,10 +30,10 @@
   },
   "scripts": {
     "test": "eslint src",
-    "build": "npm run build:client && npm run build:server",
+    "build": "npm run build:client && npm run build:server -- --env=prod",
     "build:client": "BABEL_ENV=production webpack --config ./webpack/client.babel.js -p --env=prod",
     "build:server": "webpack --config ./webpack/server.babel.js",
-    "start:dev": "webpack-dev-server --config ./webpack/client.babel.js & (npm run build:server ; nodemon index.js | bunyan)",
+    "start:dev": "webpack-dev-server --config ./webpack/client.babel.js & npm run build:server & nodemon index.js | bunyan",
     "start": "NODE_ENV=production node index.js | bunyan"
   },
   "dependencies": {

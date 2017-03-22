@@ -1,9 +1,9 @@
 <div class="blog-post-page">
   <div class="blog-full-header default-row">
     <div class="default-column">
-      <h1 class="blog-post-title">{{blogPost.title}}</h1>
+      <h1 class="blog-post-title">{{title}}</h1>
       <div class="blog-tags">
-        {{#each blogPost.topics.data}}
+        {{#each topics}}
           <a href="/blog/{{link}}" class="blog-tag">{{topic}}</a>
         {{/each}}
       </div>
@@ -12,11 +12,14 @@
   <div class="default-row">
     <div class="default-column">
       <div class="blog-full-post">
-        <img src="{{blogPost.head_image.data.url}}" alt="">
+        <p>
+          <img src="{{mainImage}}" alt="">
+        </p>
         {{> share-buttons  class="share-buttons_vertical" }}
         <div class="blog-content">
-          {{{encodeMyString blogPost.text}}}
+          {{{encodeMyString text}}}
         </div>
+        {{> blogAuthor}}
       </div>
     </div>
   </div>

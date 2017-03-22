@@ -80,6 +80,7 @@ const blogRouter = new Router()
     const { data: [{
       first_name: firstName,
       last_name: lastName,
+      facebook,
       avatar_file_id: {
         data: {
           thumbnail_url: avatar,
@@ -98,6 +99,7 @@ const blogRouter = new Router()
       author: {
         name: `${firstName} ${lastName}`,
         avatar,
+        facebook,
       },
     }));
   });

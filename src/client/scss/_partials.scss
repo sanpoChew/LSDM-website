@@ -16,18 +16,30 @@
   }
 }
 
+.blogAuthor_Info {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+    text-align: left;
+  }
+}
+
 .blogAuthor_Avatar {
   height: auto;
   max-width: 200px;
 }
 
-.blogAuthor_Name {
-  display: inline-block;
+.blogAuthor_Text {
   @include media-breakpoint-up(md) {
     margin-left: 1em;
   }
 }
 
+.blogFooter-Author_LinkImage {
+  width: 40px;
+}
 
 .blogFooter-Company {
   @extend .col-md-4;

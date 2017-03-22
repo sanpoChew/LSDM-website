@@ -650,6 +650,7 @@ const blogRouter = new _koaRouter2.default().get('/', async ctx => {
   const { data: [{
       first_name: firstName,
       last_name: lastName,
+      facebook,
       avatar_file_id: {
         data: {
           thumbnail_url: avatar
@@ -667,7 +668,8 @@ const blogRouter = new _koaRouter2.default().get('/', async ctx => {
     text,
     author: {
       name: `${firstName} ${lastName}`,
-      avatar
+      avatar,
+      facebook
     }
   }));
 });

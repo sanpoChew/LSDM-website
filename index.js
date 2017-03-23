@@ -126,7 +126,7 @@ new _koa2.default().use((0, _koaBetterBody2.default)()).use(_koaHbs2.default.mid
   partialsPath: _path2.default.resolve('./src/views/partials'),
   layoutsPath: _path2.default.resolve('./src/views/layouts'),
   defaultLayout: 'default',
-  disableCache: true
+  disableCache: process.env.NODE_ENV !== 'production'
 })).use(async (ctx, next) => {
   try {
     await next();

@@ -25,7 +25,7 @@ new Koa()
     partialsPath: path.resolve('./src/views/partials'),
     layoutsPath: path.resolve('./src/views/layouts'),
     defaultLayout: 'default',
-    disableCache: true,
+    disableCache: process.env.NODE_ENV !== 'production',
   }))
   .use(async (ctx, next) => {
     try {

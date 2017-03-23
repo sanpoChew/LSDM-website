@@ -3756,9 +3756,9 @@ koa-convert@^1.2.0:
     co "^4.6.0"
     koa-compose "^3.0.0"
 
-koa-hbs@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/koa-hbs/-/koa-hbs-0.9.0.tgz#c8a2af2933a49acaa47a197e2c279f8b2ecdb76e"
+koa-hbs@next:
+  version "1.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/koa-hbs/-/koa-hbs-1.0.0-alpha.1.tgz#a060497f3d764f0bd299f069c1556e05d443781e"
   dependencies:
     glob "^7.0.5"
     handlebars "^4.0.5"

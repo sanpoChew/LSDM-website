@@ -15,11 +15,11 @@
         <p>
           <img src="{{mainImage}}" alt="">
         </p>
-        {{> share-buttons  class="share-buttons_vertical" }}
+        {{> blog/share class="share-buttons_vertical" }}
         <div class="blog-content">
           {{{encodeMyString text}}}
         </div>
-        {{> blogAuthor}}
+        {{> blog/footer}}
       </div>
     </div>
   </div>

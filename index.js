@@ -87,29 +87,21 @@ var _bunyan = __webpack_require__(5);
 
 var _bunyan2 = _interopRequireDefault(_bunyan);
 
-var _co = __webpack_require__(6);
+__webpack_require__(6);
 
-var _co2 = _interopRequireDefault(_co);
-
-__webpack_require__(7);
-
-var _koa = __webpack_require__(8);
+var _koa = __webpack_require__(7);
 
 var _koa2 = _interopRequireDefault(_koa);
 
-var _koaBetterBody = __webpack_require__(9);
+var _koaBetterBody = __webpack_require__(8);
 
 var _koaBetterBody2 = _interopRequireDefault(_koaBetterBody);
 
-var _koaConvert = __webpack_require__(10);
-
-var _koaConvert2 = _interopRequireDefault(_koaConvert);
-
-var _koaHbs = __webpack_require__(11);
+var _koaHbs = __webpack_require__(9);
 
 var _koaHbs2 = _interopRequireDefault(_koaHbs);
 
-var _path = __webpack_require__(12);
+var _path = __webpack_require__(10);
 
 var _path2 = _interopRequireDefault(_path);
 
@@ -129,19 +121,13 @@ _koaHbs2.default.registerHelper('cut', text => {
 
 _koaHbs2.default.registerHelper('encodeMyString', i => new _koaHbs2.default.SafeString(i.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')));
 
-new _koa2.default().use((0, _koaConvert2.default)((0, _koaBetterBody2.default)())).use((0, _koaConvert2.default)(_koaHbs2.default.middleware({
+new _koa2.default().use((0, _koaBetterBody2.default)()).use(_koaHbs2.default.middleware({
   viewPath: _path2.default.resolve('./src/views/pages'),
   partialsPath: _path2.default.resolve('./src/views/partials'),
   layoutsPath: _path2.default.resolve('./src/views/layouts'),
   defaultLayout: 'default',
   disableCache: true
-}))).use(async (ctx, next) => {
-  const render = ctx.render;
-  ctx.render = async function _convertedRender(...args) {
-    return _co2.default.call(ctx, render.apply(ctx, args));
-  };
-  await next();
-}).use(async (ctx, next) => {
+})).use(async (ctx, next) => {
   try {
     await next();
   } catch (err) {
@@ -163,7 +149,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.loadBaseData = loadBaseData;
 
-var _directusSdkJavascript = __webpack_require__(18);
+var _directusSdkJavascript = __webpack_require__(16);
 
 var _directusSdkJavascript2 = _interopRequireDefault(_directusSdkJavascript);
 
@@ -206,11 +192,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _hubspot = __webpack_require__(20);
+var _hubspot = __webpack_require__(18);
 
 var _hubspot2 = _interopRequireDefault(_hubspot);
 
-var _request = __webpack_require__(22);
+var _request = __webpack_require__(20);
 
 var _request2 = _interopRequireDefault(_request);
 
@@ -357,7 +343,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _fs = __webpack_require__(19);
+var _fs = __webpack_require__(17);
 
 var _fs2 = _interopRequireDefault(_fs);
 
@@ -365,19 +351,19 @@ var _koaRouter = __webpack_require__(0);
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
-var _blog = __webpack_require__(14);
+var _blog = __webpack_require__(12);
 
 var _blog2 = _interopRequireDefault(_blog);
 
-var _courses = __webpack_require__(15);
+var _courses = __webpack_require__(13);
 
 var _courses2 = _interopRequireDefault(_courses);
 
-var _diagnostic = __webpack_require__(16);
+var _diagnostic = __webpack_require__(14);
 
 var _diagnostic2 = _interopRequireDefault(_diagnostic);
 
-var _forms = __webpack_require__(17);
+var _forms = __webpack_require__(15);
 
 var _forms2 = _interopRequireDefault(_forms);
 
@@ -432,46 +418,34 @@ module.exports = require("bunyan");
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = require("co");
+module.exports = require("dotenv/config");
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = require("dotenv/config");
+module.exports = require("koa");
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports) {
 
-module.exports = require("koa");
+module.exports = require("koa-better-body");
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports) {
 
-module.exports = require("koa-better-body");
+module.exports = require("koa-hbs");
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-module.exports = require("koa-convert");
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-module.exports = require("koa-hbs");
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
 module.exports = require("path");
 
 /***/ }),
-/* 13 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -481,7 +455,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _mailgunJs = __webpack_require__(21);
+var _mailgunJs = __webpack_require__(19);
 
 var _mailgunJs2 = _interopRequireDefault(_mailgunJs);
 
@@ -555,7 +529,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 14 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -677,7 +651,7 @@ const blogRouter = new _koaRouter2.default().get('/', async ctx => {
 exports.default = blogRouter;
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -691,7 +665,7 @@ var _koaRouter = __webpack_require__(0);
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
-var _stripe = __webpack_require__(23);
+var _stripe = __webpack_require__(21);
 
 var _stripe2 = _interopRequireDefault(_stripe);
 
@@ -816,7 +790,7 @@ const courseRouter = new _koaRouter2.default().get('/', async ctx => {
 exports.default = courseRouter;
 
 /***/ }),
-/* 16 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -842,7 +816,7 @@ const diagnosticRouter = new _koaRouter2.default().get('/start', async ctx => {
 exports.default = diagnosticRouter;
 
 /***/ }),
-/* 17 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -856,7 +830,7 @@ var _koaRouter = __webpack_require__(0);
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
-var _validator = __webpack_require__(24);
+var _validator = __webpack_require__(22);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -864,7 +838,7 @@ var _hubspot = __webpack_require__(3);
 
 var _hubspot2 = _interopRequireDefault(_hubspot);
 
-var _mailgun = __webpack_require__(13);
+var _mailgun = __webpack_require__(11);
 
 var _mailgun2 = _interopRequireDefault(_mailgun);
 
@@ -932,43 +906,43 @@ const formRouter = new _koaRouter2.default().post('/:form', async (ctx, next) =>
 exports.default = formRouter;
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("directus-sdk-javascript");
 
 /***/ }),
-/* 19 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 20 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("hubspot");
 
 /***/ }),
-/* 21 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("mailgun-js");
 
 /***/ }),
-/* 22 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("request");
 
 /***/ }),
-/* 23 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("stripe");
 
 /***/ }),
-/* 24 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("validator");

@@ -1442,7 +1442,11 @@
     color: $light-blue;
     font-weight: bold;
     text-decoration: none;
-    
+  }
+
+  & p, ul {
+    font-size: 18px;
+    font-weight: normal;
   }
 }
 

@@ -83,29 +83,29 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _bunyan = __webpack_require__(5);
+var _bunyan = __webpack_require__(6);
 
 var _bunyan2 = _interopRequireDefault(_bunyan);
 
-__webpack_require__(6);
+__webpack_require__(7);
 
-var _koa = __webpack_require__(7);
+var _koa = __webpack_require__(8);
 
 var _koa2 = _interopRequireDefault(_koa);
 
-var _koaBetterBody = __webpack_require__(8);
+var _koaBetterBody = __webpack_require__(9);
 
 var _koaBetterBody2 = _interopRequireDefault(_koaBetterBody);
 
-var _koaHbs = __webpack_require__(9);
+var _koaHbs = __webpack_require__(10);
 
 var _koaHbs2 = _interopRequireDefault(_koaHbs);
 
-var _path = __webpack_require__(10);
+var _path = __webpack_require__(11);
 
 var _path2 = _interopRequireDefault(_path);
 
-var _routes = __webpack_require__(4);
+var _routes = __webpack_require__(5);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -149,7 +149,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.loadBaseData = loadBaseData;
 
-var _directusSdkJavascript = __webpack_require__(16);
+var _directusSdkJavascript = __webpack_require__(18);
 
 var _directusSdkJavascript2 = _interopRequireDefault(_directusSdkJavascript);
 
@@ -192,11 +192,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _hubspot = __webpack_require__(18);
+var _hubspot = __webpack_require__(20);
 
 var _hubspot2 = _interopRequireDefault(_hubspot);
 
-var _request = __webpack_require__(20);
+var _request = __webpack_require__(22);
 
 var _request2 = _interopRequireDefault(_request);
 
@@ -334,6 +334,12 @@ exports.default = {
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("stripe");
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -343,7 +349,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _fs = __webpack_require__(17);
+var _fs = __webpack_require__(19);
 
 var _fs2 = _interopRequireDefault(_fs);
 
@@ -351,21 +357,25 @@ var _koaRouter = __webpack_require__(0);
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
-var _blog = __webpack_require__(12);
+var _blog = __webpack_require__(13);
 
 var _blog2 = _interopRequireDefault(_blog);
 
-var _courses = __webpack_require__(13);
+var _courses = __webpack_require__(14);
 
 var _courses2 = _interopRequireDefault(_courses);
 
-var _diagnostic = __webpack_require__(14);
+var _diagnostic = __webpack_require__(15);
 
 var _diagnostic2 = _interopRequireDefault(_diagnostic);
 
-var _forms = __webpack_require__(15);
+var _forms = __webpack_require__(16);
 
 var _forms2 = _interopRequireDefault(_forms);
+
+var _testimonials = __webpack_require__(17);
+
+var _testimonials2 = _interopRequireDefault(_testimonials);
 
 var _index = __webpack_require__(1);
 
@@ -386,7 +396,7 @@ const index = new _koaRouter2.default().get(/^\/(.*)(?:\/|$)/, async (ctx, next)
   } catch (err) {
     _index2.default.error({ err });
   }
-}).use('/blog', _blog2.default.routes(), _blog2.default.allowedMethods()).use('/courses', _courses2.default.routes(), _courses2.default.allowedMethods()).use('/diagnostic-tool', _diagnostic2.default.routes(), _diagnostic2.default.allowedMethods()).use('/forms', _forms2.default.routes(), _forms2.default.allowedMethods()).get('/', async ctx => {
+}).use('/blog', _blog2.default.routes(), _blog2.default.allowedMethods()).use('/courses', _courses2.default.routes(), _courses2.default.allowedMethods()).use('/diagnostic-tool', _diagnostic2.default.routes(), _diagnostic2.default.allowedMethods()).use('/forms', _forms2.default.routes(), _forms2.default.allowedMethods()).use('/testimonials', _testimonials2.default.routes(), _testimonials2.default.allowedMethods()).get('/', async ctx => {
   try {
     await ctx.render('home', Object.assign(ctx.state, {
       pageTitle: 'Home | London School of Digital Marketing'
@@ -409,43 +419,43 @@ const index = new _koaRouter2.default().get(/^\/(.*)(?:\/|$)/, async (ctx, next)
 exports.default = index;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = require("bunyan");
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = require("dotenv/config");
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa");
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-better-body");
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-hbs");
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -455,7 +465,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _mailgunJs = __webpack_require__(19);
+var _mailgunJs = __webpack_require__(21);
 
 var _mailgunJs2 = _interopRequireDefault(_mailgunJs);
 
@@ -529,7 +539,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -651,7 +661,7 @@ const blogRouter = new _koaRouter2.default().get('/', async ctx => {
 exports.default = blogRouter;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -665,7 +675,7 @@ var _koaRouter = __webpack_require__(0);
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
-var _stripe = __webpack_require__(21);
+var _stripe = __webpack_require__(4);
 
 var _stripe2 = _interopRequireDefault(_stripe);
 
@@ -790,7 +800,7 @@ const courseRouter = new _koaRouter2.default().get('/', async ctx => {
 exports.default = courseRouter;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -816,7 +826,7 @@ const diagnosticRouter = new _koaRouter2.default().get('/start', async ctx => {
 exports.default = diagnosticRouter;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -830,7 +840,7 @@ var _koaRouter = __webpack_require__(0);
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
-var _validator = __webpack_require__(22);
+var _validator = __webpack_require__(23);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -838,7 +848,7 @@ var _hubspot = __webpack_require__(3);
 
 var _hubspot2 = _interopRequireDefault(_hubspot);
 
-var _mailgun = __webpack_require__(11);
+var _mailgun = __webpack_require__(12);
 
 var _mailgun2 = _interopRequireDefault(_mailgun);
 
@@ -906,43 +916,103 @@ const formRouter = new _koaRouter2.default().post('/:form', async (ctx, next) =>
 exports.default = formRouter;
 
 /***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-module.exports = require("directus-sdk-javascript");
-
-/***/ }),
 /* 17 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("fs");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _koaRouter = __webpack_require__(0);
+
+var _koaRouter2 = _interopRequireDefault(_koaRouter);
+
+var _stripe = __webpack_require__(4);
+
+var _stripe2 = _interopRequireDefault(_stripe);
+
+var _index = __webpack_require__(1);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _directus = __webpack_require__(2);
+
+var _directus2 = _interopRequireDefault(_directus);
+
+var _hubspot = __webpack_require__(3);
+
+var _hubspot2 = _interopRequireDefault(_hubspot);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function removeMeta(data, fields = []) {
+  return data.map(d => Object.assign(d, ...fields.map(f => ({ [f]: d[f].data[0][f] }))));
+}
+
+const courseRouter = new _koaRouter2.default().get('/', async ctx => {
+  try {
+    const { data } = await _directus2.default.getItems('Testimonials');
+    await ctx.render('testimonials', Object.assign(ctx.state, {
+      pageTitle: 'Testimonials | London School of Digital Marketing',
+      data
+    }));
+  } catch (err) {
+    _index2.default.error({ err });
+  }
+}).get('/:name', async ctx => {
+  try {
+    const { data: [testimonial] } = await _directus2.default.getItems('Testimonials', {
+      filters: { Slug: ctx.params.name }
+    });
+
+    console.log(testimonial);
+
+    await ctx.render('testimonial', Object.assign(ctx.state, {
+      pageTitle: `${testimonial.Title} | London School of Digital Marketing`,
+      testimonial
+    }));
+  } catch (err) {
+    _index2.default.error({ err });
+  }
+});
+
+exports.default = courseRouter;
 
 /***/ }),
 /* 18 */
 /***/ (function(module, exports) {
 
-module.exports = require("hubspot");
+module.exports = require("directus-sdk-javascript");
 
 /***/ }),
 /* 19 */
 /***/ (function(module, exports) {
 
-module.exports = require("mailgun-js");
+module.exports = require("fs");
 
 /***/ }),
 /* 20 */
 /***/ (function(module, exports) {
 
-module.exports = require("request");
+module.exports = require("hubspot");
 
 /***/ }),
 /* 21 */
 /***/ (function(module, exports) {
 
-module.exports = require("stripe");
+module.exports = require("mailgun-js");
 
 /***/ }),
 /* 22 */
+/***/ (function(module, exports) {
+
+module.exports = require("request");
+
+/***/ }),
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("validator");

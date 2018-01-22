@@ -4,6 +4,7 @@ import blogRouter from './blog';
 import coursesRouter from './courses';
 import diagnosticRouter from './diagnostic';
 import formsRouter from './forms';
+import testimonialsRouter from './testimonials';
 import log from '../index';
 import { loadBaseData } from '../lib/directus';
 
@@ -24,6 +25,7 @@ const index = new Router()
   .use('/courses', coursesRouter.routes(), coursesRouter.allowedMethods())
   .use('/diagnostic-tool', diagnosticRouter.routes(), diagnosticRouter.allowedMethods())
   .use('/forms', formsRouter.routes(), formsRouter.allowedMethods())
+  .use('/testimonials', testimonialsRouter.routes(), testimonialsRouter.allowedMethods())
   .get('/', async (ctx) => {
     try {
       await ctx.render('home', Object.assign(ctx.state, {

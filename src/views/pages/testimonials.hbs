@@ -1,0 +1,23 @@
+<div class="courses">
+  <div class="courses-splash">
+    <div class="default-column">
+      <div class="content-row">
+        <div class="courses-splash-text">
+          <h1>Testimonials</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="courses-main">
+    <div class="default-column">
+      <div class="content-row">
+        {{#each data}}
+            <a class="testimonials-person" href="/testimonials/{{Slug}}">
+                <img src={{Picture.data.url}}>
+                {{Title}}
+            </a>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>

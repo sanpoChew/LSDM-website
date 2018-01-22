@@ -1504,3 +1504,18 @@
     max-width: 100%;
   }
 }
+
+.testimonials-person {
+  width: 200px;
+  background: white;
+  border: 1px solid black;
+}
+
+.testimonial-image {
+  width: auto;
+  margin: 0 auto;
+}
+
+.testimonial-content {
+  flex: 1;
+}
